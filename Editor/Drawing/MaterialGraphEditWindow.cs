@@ -954,19 +954,11 @@ namespace UnityEditor.ShaderGraph.Drawing
                             throw new ArgumentOutOfRangeException();
                     }
 
-<<<<<<< HEAD
-                    prop.displayName = fromProperty != null
-                        ? fromProperty.displayName
-                        : fromSlot.concreteValueType.ToString();
-                    prop.displayName = GraphUtil.SanitizeName(subGraph.addedInputs.Select(p => p.displayName), "{0} ({1})",
-                        prop.displayName);
-=======
                     var propName = fromProperty != null
                         ? fromProperty.displayName
                         : fromSlot.concreteValueType.ToString();
                     prop.SetDisplayNameAndSanitizeForGraph(subGraph, propName);
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     subGraph.AddGraphInput(prop);
                     if (fromProperty != null)
                     {
@@ -1002,15 +994,9 @@ namespace UnityEditor.ShaderGraph.Drawing
                         int i;
                         var inputs = edge.inputSlot.node.GetInputSlots<MaterialSlot>().ToList();
 
-<<<<<<< HEAD
-                        for(i = 0; i < inputs.Count; ++i)
-                        {
-                            if(inputs[i].slotReference.slotId == edge.inputSlot.slotId)
-=======
                         for (i = 0; i < inputs.Count; ++i)
                         {
                             if (inputs[i].slotReference.slotId == edge.inputSlot.slotId)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                             {
                                 break;
                             }
@@ -1100,17 +1086,6 @@ namespace UnityEditor.ShaderGraph.Drawing
 
             graphObject.graph.RemoveElements(
                 graphView.selection.OfType<IShaderNodeView>().Select(x => x.node).Where(x => !(x is PropertyNode || x is SubGraphOutputNode) && x.allowedInSubGraph).ToArray(),
-<<<<<<< HEAD
-                new IEdge[] {},
-                new GroupData[] {},
-                graphView.selection.OfType<StickyNote>().Select(x => x.userData).ToArray());
-
-            List<GraphElement> moved = new List<GraphElement>();
-            foreach(var nodeView in graphView.selection.OfType<IShaderNodeView>())
-            {
-                var node = nodeView.node;
-                if(graphView.graph.removedNodes.Contains(node) || node is SubGraphOutputNode)
-=======
                 new IEdge[] { },
                 new GroupData[] { },
                 graphView.selection.OfType<StickyNote>().Select(x => x.userData).ToArray());
@@ -1120,39 +1095,24 @@ namespace UnityEditor.ShaderGraph.Drawing
             {
                 var node = nodeView.node;
                 if (graphView.graph.removedNodes.Contains(node) || node is SubGraphOutputNode)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     continue;
                 }
 
                 var edges = graphView.graph.GetEdges(node);
                 int numEdges = edges.Count();
-<<<<<<< HEAD
-                if(numEdges == 0)
-                {
-                    graphView.graph.RemoveNode(node);
-                }
-                else if(numEdges == 1 && edges.First().inputSlot.node != node) //its an output edge
-=======
                 if (numEdges == 0)
                 {
                     graphView.graph.RemoveNode(node);
                 }
                 else if (numEdges == 1 && edges.First().inputSlot.node != node) //its an output edge
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     var edge = edges.First();
                     int i;
                     var inputs = edge.inputSlot.node.GetInputSlots<MaterialSlot>().ToList();
-<<<<<<< HEAD
-                    for(i = 0; i < inputs.Count; ++i)
-                    {
-                        if(inputs[i].slotReference.slotId == edge.inputSlot.slotId)
-=======
                     for (i = 0; i < inputs.Count; ++i)
                     {
                         if (inputs[i].slotReference.slotId == edge.inputSlot.slotId)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                         {
                             break;
                         }

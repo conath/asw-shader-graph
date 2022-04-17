@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-using UnityEngine;
-=======
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +9,6 @@ using UnityEditor.ShaderGraph.Drawing;
 using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
 namespace UnityEditor.ShaderGraph
 {

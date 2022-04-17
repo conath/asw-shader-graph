@@ -71,14 +71,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             greyLabel.normal = new GUIStyleState { textColor = Color.grey };
             greyLabel.focused = new GUIStyleState { textColor = Color.grey };
             greyLabel.hover = new GUIStyleState { textColor = Color.grey };
-
-            // Initializing this callback early on as it is needed by the BlackboardFieldView and PropertyNodeView
-            // for binding to the menu action that triggers the reset
-            _resetReferenceNameCallback = newValue =>
-            {
-                m_ReferenceNameField.value = newValue;
-                m_ReferenceNameField.RemoveFromClassList("modified");
-            };
         }
 
         GraphData graphData;
@@ -194,10 +186,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                     },
                     new ToggleData(shaderInput.isExposed),
                     "Exposed",
-<<<<<<< HEAD
-                    out var propertyToggle));
-                propertyToggle.SetEnabled(shaderInput.isExposable && !shaderInput.isAlwaysExposed);
-=======
                     out var exposedToggleVisualElement));
                 exposedToggle = exposedToggleVisualElement as Toggle;
             }
@@ -263,7 +251,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             {
                 keywordScopeField?.SetEnabled(!keyword.isBuiltIn && (keyword.keywordDefinition != KeywordDefinition.Predefined));
                 this._exposedFieldChangedCallback(keyword.generatePropertyBlock); // change exposed icon appropriately
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
         }
 
@@ -308,12 +295,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 propertySheet.Add(m_ReferenceNameDrawer.CreateGUI(
                     null,
                     (string)shaderInput.referenceNameForEditing,
-<<<<<<< HEAD
-                    "Reference",
-                    out var propertyVisualElement));
-=======
                     "Reference"));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 m_ReferenceNameField = m_ReferenceNameDrawer.textField;
                 m_ReferenceNameField.RegisterValueChangedCallback(
@@ -341,12 +323,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                         this._postChangeValueCallback(true, ModificationScope.Graph);
                     });
 
-<<<<<<< HEAD
-                if(!string.IsNullOrEmpty(shaderInput.overrideReferenceName))
-                    propertyVisualElement.AddToClassList("modified");
-                propertyVisualElement.SetEnabled(shaderInput.isReferenceRenamable);
-                propertyVisualElement.styleSheets.Add(Resources.Load<StyleSheet>("Styles/PropertyNameReferenceField"));
-=======
                 if (!string.IsNullOrEmpty(shaderInput.overrideReferenceName))
                 {
                     m_ReferenceNameDrawer.textField.AddToClassList("modified");
@@ -357,7 +333,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 // add the right click context menu to the label
                 IManipulator contextMenuManipulator = new ContextualMenuManipulator((evt) => AddShaderInputOptionsToContextMenu(shaderInput, evt));
                 m_ReferenceNameDrawer.label.AddManipulator(contextMenuManipulator);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
         }
 
@@ -494,96 +469,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             bool anyAllowed = false;
             for (int i = 0; i < hlslDecls.Length; i++)
             {
-<<<<<<< HEAD
-            case IShaderPropertyDrawer propDrawer:
-                propDrawer.HandlePropertyField(propertySheet, _preChangeValueCallback, _postChangeValueCallback);
-                break;
-            case UnityEditor.ShaderGraph.Serialization.MultiJsonInternal.UnknownShaderPropertyType unknownProperty:
-                var helpBox = new HelpBoxRow(MessageType.Warning);
-                helpBox.Add(new Label("Cannot find the code for this Property, a package may be missing."));
-                propertySheet.Add(helpBox);
-                break;
-            case Vector1ShaderProperty vector1Property:
-                HandleVector1ShaderProperty(propertySheet, vector1Property);
-                break;
-            case Vector2ShaderProperty vector2Property:
-                HandleVector2ShaderProperty(propertySheet, vector2Property);
-                break;
-            case Vector3ShaderProperty vector3Property:
-                HandleVector3ShaderProperty(propertySheet, vector3Property);
-                break;
-            case Vector4ShaderProperty vector4Property:
-                HandleVector4ShaderProperty(propertySheet, vector4Property);
-                break;
-            case ColorShaderProperty colorProperty:
-                HandleColorProperty(propertySheet, colorProperty);
-                break;
-            case Texture2DShaderProperty texture2DProperty:
-                HandleTexture2DProperty(propertySheet, texture2DProperty);
-                break;
-            case Texture2DArrayShaderProperty texture2DArrayProperty:
-                HandleTexture2DArrayProperty(propertySheet, texture2DArrayProperty);
-                break;
-            case VirtualTextureShaderProperty virtualTextureProperty:
-                HandleVirtualTextureProperty(propertySheet, virtualTextureProperty);
-                break;
-            case Texture3DShaderProperty texture3DProperty:
-                HandleTexture3DProperty(propertySheet, texture3DProperty);
-                break;
-            case CubemapShaderProperty cubemapProperty:
-                HandleCubemapProperty(propertySheet, cubemapProperty);
-                break;
-            case BooleanShaderProperty booleanProperty:
-                HandleBooleanProperty(propertySheet, booleanProperty);
-                break;
-            case Matrix2ShaderProperty matrix2Property:
-                HandleMatrix2PropertyField(propertySheet, matrix2Property);
-                break;
-            case Matrix3ShaderProperty matrix3Property:
-                HandleMatrix3PropertyField(propertySheet, matrix3Property);
-                break;
-            case Matrix4ShaderProperty matrix4Property:
-                HandleMatrix4PropertyField(propertySheet, matrix4Property);
-                break;
-            case SamplerStateShaderProperty samplerStateProperty:
-                HandleSamplerStatePropertyField(propertySheet, samplerStateProperty);
-                break;
-            case GradientShaderProperty gradientProperty:
-                HandleGradientPropertyField(propertySheet, gradientProperty);
-                break;
-            }
-
-            BuildPrecisionField(propertySheet, property);
-
-            BuildExposedField(propertySheet);
-
-            BuildHLSLDeclarationOverrideFields(propertySheet, property);
-        }
-
-        static string[] allHLSLDeclarationStrings = new string[]
-        {
-            "Do Not Declare",       // HLSLDeclaration.DoNotDeclare
-            "Global",               // HLSLDeclaration.Global
-            "Per Material",         // HLSLDeclaration.UnityPerMaterial
-            "Hybrid Per Instance",  // HLSLDeclaration.HybridPerInstance
-        };
-
-        void BuildHLSLDeclarationOverrideFields(PropertySheet propertySheet, AbstractShaderProperty property)
-        {
-            var hlslDecls = Enum.GetValues(typeof(HLSLDeclaration));
-            var allowedDecls = new List<HLSLDeclaration>();
-
-            bool anyAllowed = false;
-            for (int i = 0; i < hlslDecls.Length; i++)
-            {
-                HLSLDeclaration decl = (HLSLDeclaration) hlslDecls.GetValue(i);
-                var allowed = property.AllowHLSLDeclaration(decl);
-                anyAllowed = anyAllowed || allowed;
-                if (allowed)
-                    allowedDecls.Add(decl);
-            }
-
-=======
                 HLSLDeclaration decl = (HLSLDeclaration)hlslDecls.GetValue(i);
                 var allowed = property.AllowHLSLDeclaration(decl);
                 anyAllowed = anyAllowed || allowed;
@@ -591,20 +476,14 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                     allowedDecls.Add(decl);
             }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             if (anyAllowed)
             {
                 var propRow = new PropertyRow(PropertyDrawerUtils.CreateLabel("Shader Declaration", 1));
                 var popupField = new PopupField<HLSLDeclaration>(
                     allowedDecls,
                     property.GetDefaultHLSLDeclaration(),
-<<<<<<< HEAD
-                    (h => allHLSLDeclarationStrings[(int) h]),
-                    (h => allHLSLDeclarationStrings[(int) h]));
-=======
                     (h => allHLSLDeclarationStrings[(int)h]),
                     (h => allHLSLDeclarationStrings[(int)h]));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 popupField.RegisterValueChangedCallback(
                     evt =>
@@ -658,16 +537,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
         {
             var enumPropertyDrawer = new EnumPropertyDrawer();
             propertySheet.Add(enumPropertyDrawer.CreateGUI(newValue =>
-<<<<<<< HEAD
-                {
-                    this._preChangeValueCallback("Change Precision");
-                    if (property.precision == (Precision) newValue)
-                        return;
-                    property.precision = (Precision)newValue;
-                    this._precisionChangedCallback();
-                    this._postChangeValueCallback();
-                }, property.precision, "Precision", Precision.Inherit, out var precisionField));
-=======
             {
                 this._preChangeValueCallback("Change Precision");
                 if (property.precision == (Precision)newValue)
@@ -676,7 +545,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 this._precisionChangedCallback();
                 this._postChangeValueCallback();
             }, (PropertyDrawerUtils.UIPrecisionForShaderGraphs)property.precision, "Precision", PropertyDrawerUtils.UIPrecisionForShaderGraphs.Inherit, out var precisionField));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             if (property is Serialization.MultiJsonInternal.UnknownShaderPropertyType)
                 precisionField.SetEnabled(false);
         }
@@ -1524,14 +1392,8 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 Rect displayRect = new Rect(rect.x, rect.y, rect.width / 2, EditorGUIUtility.singleLineHeight);
                 var displayName = EditorGUI.DelayedTextField(displayRect, entry.displayName, EditorStyles.label);
                 //This is gross but I cant find any other way to make a DelayedTextField have a tooltip (tried doing the empty label on the field itself and it didnt work either)
-<<<<<<< HEAD
-                EditorGUI.LabelField(displayRect, new GUIContent("", "Enum keyword display names can only use alphanumeric characters and `_`"));
-
-                var referenceName = EditorGUI.TextField( new Rect(rect.x + rect.width / 2, rect.y, rect.width / 2, EditorGUIUtility.singleLineHeight), entry.referenceName,
-=======
                 EditorGUI.LabelField(displayRect, new GUIContent("", "Enum keyword display names can only use alphanumeric characters, whitespace and `_`"));
                 var referenceName = EditorGUI.TextField(new Rect(rect.x + rect.width / 2, rect.y, rect.width / 2, EditorGUIUtility.singleLineHeight), entry.referenceName,
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     keyword.isBuiltIn ? EditorStyles.label : greyLabel);
 
                 if (EditorGUI.EndChangeCheck())
@@ -1663,9 +1525,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
         {
             name = name.Trim();
             var entryList = m_KeywordReorderableList.list as List<KeywordEntry>;
-<<<<<<< HEAD
-            return GraphUtil.SanitizeName(entryList.Where(p => p.id != id).Select(p => p.displayName), "{0} ({1})", name, "[^\\w_#() .]");
-=======
             return GraphUtil.SanitizeName(entryList.Where(p => p.id != id).Select(p => p.displayName), "{0} {1}", name, m_DisplayNameDisallowedPattern);
         }
 
@@ -1690,16 +1549,12 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
         {
             name = name.Trim();
             return Regex.Replace(name, m_DisplayNameDisallowedPattern, "_");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public string GetDuplicateSafeReferenceName(int id, string name)
         {
             name = name.Trim();
             var entryList = m_KeywordReorderableList.list as List<KeywordEntry>;
-<<<<<<< HEAD
-            return GraphUtil.SanitizeName(entryList.Where(p => p.id != id).Select(p => p.referenceName), "{0}_{1}", name, @"(?:[^A-Za-z_0-9_])");
-=======
             return GraphUtil.SanitizeName(entryList.Where(p => p.id != id).Select(p => p.referenceName), "{0}_{1}", name, m_ReferenceNameDisallowedPattern);
         }
 
@@ -1920,7 +1775,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
         {
             var entryList = m_DropdownReorderableList.list as List<DropdownEntry>;
             return entryList.FindIndex(entry => entry.id != id && entry.displayName == displayName);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
     }
 }

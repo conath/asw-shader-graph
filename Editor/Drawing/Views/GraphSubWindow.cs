@@ -3,15 +3,10 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.ShaderGraph.Drawing.Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.ShaderGraph.Drawing.Interfaces;
 
 namespace UnityEditor.ShaderGraph.Drawing.Views
 {
-<<<<<<< HEAD
-    class GraphSubWindow : GraphElement, ISGResizable
-=======
     interface ISelectionProvider
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     {
         List<ISelectable> GetSelection { get; }
     }
@@ -40,10 +35,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
 
         // Used to cache the window docking layout between resizing operations as it interferes with window resizing operations
         private IStyle cachedWindowDockingStyle;
-<<<<<<< HEAD
-
-=======
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         protected VisualElement m_MainContainer;
         protected VisualElement m_Root;
@@ -68,15 +59,9 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
         {
             get
             {
-<<<<<<< HEAD
-                if (!isWindowed && m_GraphView == null)
-                    m_GraphView = GetFirstAncestorOfType<GraphView>();
-                return m_GraphView;
-=======
                 if (!isWindowed && m_ParentView == null)
                     m_ParentView = GetFirstAncestorOfType<GraphView>();
                 return m_ParentView;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
 
             set
@@ -199,33 +184,21 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
 
         protected float scrollableHeight
         {
-<<<<<<< HEAD
-            get { return contentContainer.layout.height -  m_ScrollView.contentViewport.layout.height; }
-=======
             get { return contentContainer.layout.height - m_ScrollView.contentViewport.layout.height; }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void HandleScrollingBehavior(bool scrollable)
         {
             if (scrollable)
             {
-<<<<<<< HEAD
-                // Remove the sections container from the content item and add it to the scrollview
-=======
                 // Remove the categories container from the content item and add it to the scrollview
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 m_ContentContainer.RemoveFromHierarchy();
                 m_ScrollView.Add(m_ContentContainer);
                 AddToClassList("scrollable");
             }
             else
             {
-<<<<<<< HEAD
-                // Remove the sections container from the scrollview and add it to the content item
-=======
                 // Remove the categories container from the scrollview and add it to the content item
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 m_ContentContainer.RemoveFromHierarchy();
                 m_Root.Add(m_ContentContainer);
 
@@ -233,11 +206,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
             }
         }
 
-<<<<<<< HEAD
-        protected GraphSubWindow(GraphView associatedGraphView) : base()
-=======
         protected GraphSubWindow(ISGViewModel viewModel)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             ViewModel = viewModel;
             m_ParentView = ViewModel.parentView;
@@ -338,13 +307,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
 
         public void OnResized()
         {
-<<<<<<< HEAD
-            this.style.left = cachedWindowDockingStyle.left;
-            this.style.right = cachedWindowDockingStyle.right;
-            this.style.bottom = cachedWindowDockingStyle.bottom;
-            this.style.top = cachedWindowDockingStyle.top;
-
-=======
             if (cachedWindowDockingStyle != null)
             {
                 this.style.left = cachedWindowDockingStyle.left;
@@ -352,7 +314,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
                 this.style.bottom = cachedWindowDockingStyle.bottom;
                 this.style.top = cachedWindowDockingStyle.top;
             }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             windowDockingLayout.size = layout.size;
             SerializeLayout();
         }
@@ -374,11 +335,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Views
 
         protected void AddStyleSheetFromPath(string styleSheetPath)
         {
-<<<<<<< HEAD
-            StyleSheet sheetAsset = Resources.Load<StyleSheet>(styleSheetPath);;
-=======
             StyleSheet sheetAsset = Resources.Load<StyleSheet>(styleSheetPath); ;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             if (sheetAsset == null)
             {

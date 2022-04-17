@@ -82,11 +82,7 @@ namespace UnityEditor.ShaderGraph
                 {
                     customDeclaration = (ssb) =>
                     {
-<<<<<<< HEAD
-                        ssb.AppendIndentation();
-=======
                         ssb.TryAppendIndentation();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                         ssb.Append("DECLARE_STACK_CB(");
                         ssb.Append(referenceName);
                         ssb.Append(");");
@@ -96,11 +92,7 @@ namespace UnityEditor.ShaderGraph
 
                 if (!value.procedural)
                 {
-<<<<<<< HEAD
-                    // declare regular texture properties (for fallback case)
-=======
                     //declare regular texture properties (for fallback case)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     for (int i = 0; i < numLayers; i++)
                     {
                         string layerRefName = value.layers[i].layerRefName;
@@ -112,11 +104,7 @@ namespace UnityEditor.ShaderGraph
                 Action<ShaderStringBuilder> customDecl = (builder) =>
                 {
                     // declare texture stack
-<<<<<<< HEAD
-                    builder.AppendIndentation();
-=======
                     builder.TryAppendIndentation();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     builder.Append("DECLARE_STACK");
                     builder.Append((numLayers <= 1) ? "" : numLayers.ToString());
                     builder.Append("(");
@@ -129,33 +117,6 @@ namespace UnityEditor.ShaderGraph
                     }
                     builder.Append(");");
                     builder.AppendNewLine();
-<<<<<<< HEAD
-
-                    // declare the actual virtual texture property "variable" as a macro define to the BuildVTProperties function
-                    builder.AppendIndentation();
-                    builder.Append("#define ");
-                    builder.Append(referenceName);
-                    builder.Append(" AddTextureType(BuildVTProperties_");
-                    builder.Append(referenceName);
-                    builder.Append("()");
-                    for (int i = 0; i < value.layers.Count; i++)
-                    {
-                        builder.Append(",");
-                        builder.Append("TEXTURETYPE_");
-                        builder.Append(value.layers[i].layerTextureType.ToString().ToUpper());
-                    }
-                    builder.Append(")");
-                    builder.AppendNewLine();
-                };
-
-                action(new HLSLProperty(HLSLType._CUSTOM, referenceName + "_Global", HLSLDeclaration.Global, concretePrecision)
-                {
-                    customDeclaration = customDecl
-                });
-            }
-        }
-
-=======
 
                     // declare the actual virtual texture property "variable" as a macro define to the BuildVTProperties function
                     builder.TryAppendIndentation();
@@ -181,7 +142,6 @@ namespace UnityEditor.ShaderGraph
             }
         }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         // argument string used to pass this property to a subgraph
         internal override string GetPropertyAsArgumentString(string precisionString)
         {
@@ -241,10 +201,7 @@ namespace UnityEditor.ShaderGraph
         }
 
         internal override bool isAlwaysExposed => true;
-<<<<<<< HEAD
-=======
         internal override bool isCustomSlotAllowed => false;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         public override void OnAfterDeserialize(string json)
         {

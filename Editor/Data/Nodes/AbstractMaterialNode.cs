@@ -536,43 +536,20 @@ namespace UnityEditor.ShaderGraph
 
         protected const string k_validationErrorMessage = "Error found during node validation";
 
-<<<<<<< HEAD
-        public virtual void EvaluateConcretePrecision(List<MaterialSlot> inputSlots)
-=======
         // evaluate ALL the precisions...
         public virtual void UpdatePrecision(List<MaterialSlot> inputSlots)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             // first let's reduce from precision ==> graph precision
             if (precision == Precision.Inherit)
             {
-<<<<<<< HEAD
-                m_ConcretePrecision = precision.ToConcrete();
-                return;
-            }
-
-            // Get inputs
-            {
-                // If no inputs were found use the precision of the Graph
-                // This can be removed when parameters are considered as true inputs
-=======
                 // inherit means calculate it automatically based on inputs
 
                 // If no inputs were found use the precision of the Graph
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 if (inputSlots.Count == 0)
                 {
                     graphPrecision = GraphPrecision.Graph;
                 }
-<<<<<<< HEAD
-
-                // Otherwise compare precisions from inputs
-                var precisionsToCompare = new List<int>();
-
-                foreach (var inputSlot in inputSlots)
-=======
                 else
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     int curGraphPrecision = (int)GraphPrecision.Half;
                     foreach (var inputSlot in inputSlots)
@@ -676,11 +653,7 @@ namespace UnityEditor.ShaderGraph
                     skippedSlot.SetConcreteType(dynamicMatrixType);
 
                 bool inputError = inputSlots.Any(x => x.hasError);
-<<<<<<< HEAD
-                if(inputError)
-=======
                 if (inputError)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     owner.AddConcretizationError(objectId, string.Format("Node {0} had input error", objectId));
                     hasError = true;
@@ -712,11 +685,7 @@ namespace UnityEditor.ShaderGraph
                     }
                 }
 
-<<<<<<< HEAD
-                if(outputSlots.Any(x => x.hasError))
-=======
                 if (outputSlots.Any(x => x.hasError))
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     owner.AddConcretizationError(objectId, string.Format("Node {0} had output error", objectId));
                     hasError = true;
@@ -742,11 +711,7 @@ namespace UnityEditor.ShaderGraph
                 GetInputSlots(inputSlots);
                 GetOutputSlots(outputSlots);
 
-<<<<<<< HEAD
-                EvaluateConcretePrecision(inputSlots);
-=======
                 UpdatePrecision(inputSlots);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 EvaluateDynamicMaterialSlots(inputSlots, outputSlots);
             }
         }
@@ -933,10 +898,7 @@ namespace UnityEditor.ShaderGraph
                         var slot = m_Slots[matchIndex];
                         m_Slots[matchIndex] = m_Slots[writeIndex];
                         m_Slots[writeIndex] = slot;
-<<<<<<< HEAD
-=======
                         changed = true;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     }
                     writeIndex++;
                 }

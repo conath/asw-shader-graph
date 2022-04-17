@@ -51,21 +51,12 @@ namespace UnityEditor.ShaderGraph
 
             var id = GetSlotValue(CubemapInputId, generationMode);
             string result = string.Format("$precision4 {0} = SAMPLE_TEXTURECUBE_LOD({1}.tex, {2}.samplerstate, reflect(-{3}, {4}), {5});"
-<<<<<<< HEAD
-                    , GetVariableNameForSlot(OutputSlotId)
-                    , id
-                    , edgesSampler.Any() ? GetSlotValue(SamplerInputId, generationMode) : id
-                    , GetSlotValue(ViewDirInputId, generationMode)
-                    , GetSlotValue(NormalInputId, generationMode)
-                    , GetSlotValue(LODInputId, generationMode));
-=======
                 , GetVariableNameForSlot(OutputSlotId)
                 , id
                 , edgesSampler.Any() ? GetSlotValue(SamplerInputId, generationMode) : id
                 , GetSlotValue(ViewDirInputId, generationMode)
                 , GetSlotValue(NormalInputId, generationMode)
                 , GetSlotValue(LODInputId, generationMode));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             sb.AppendLine(result);
         }

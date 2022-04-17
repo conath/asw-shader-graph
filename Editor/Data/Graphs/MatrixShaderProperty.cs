@@ -10,21 +10,13 @@ namespace UnityEditor.ShaderGraph
         internal override bool isExposable => false;
         internal override bool isRenamable => true;
 
-<<<<<<< HEAD
-        internal override string GetHLSLVariableName(bool isSubgraphProperty)
-=======
         internal override string GetHLSLVariableName(bool isSubgraphProperty, GenerationMode mode)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             HLSLDeclaration decl = GetDefaultHLSLDeclaration();
             if (decl == HLSLDeclaration.HybridPerInstance)
                 return $"UNITY_ACCESS_HYBRID_INSTANCED_PROP({referenceName}, {concretePrecision.ToShaderString()}4x4)";
             else
-<<<<<<< HEAD
-                return referenceName;
-=======
                 return base.GetHLSLVariableName(isSubgraphProperty, mode);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         internal override HLSLDeclaration GetDefaultHLSLDeclaration()

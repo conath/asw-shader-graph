@@ -115,11 +115,7 @@ namespace UnityEditor.ShaderGraph.Drawing
                     concreteValueTypePopupOrig,
                     e =>
                     {
-<<<<<<< HEAD
-                        ConcreteSlotValueTypePopupName csvtpn = (ConcreteSlotValueTypePopupName) e;
-=======
                         ConcreteSlotValueTypePopupName csvtpn = (ConcreteSlotValueTypePopupName)e;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                         csvtpn.ToConcreteSlotValueType(out bool isBareResource);
                         if (isBareResource && !m_AllowBareResources)
                             return false;

@@ -18,11 +18,7 @@ namespace UnityEditor.ShaderGraph
             public static FieldDescriptor uv2 = new FieldDescriptor(Attributes.name, "uv2", "ATTRIBUTES_NEED_TEXCOORD2", ShaderValueType.Float4,
                 "TEXCOORD2", subscriptOptions: StructFieldOptions.Optional);
             public static FieldDescriptor uv3 = new FieldDescriptor(Attributes.name, "uv3", "ATTRIBUTES_NEED_TEXCOORD3", ShaderValueType.Float4,
-<<<<<<< HEAD
-                "TEXCOORD3", subscriptOptions : StructFieldOptions.Optional);
-=======
                 "TEXCOORD3", subscriptOptions: StructFieldOptions.Optional);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             public static FieldDescriptor uv4 = new FieldDescriptor(Attributes.name, "uv4", "ATTRIBUTES_NEED_TEXCOORD4", ShaderValueType.Float4,
                 "TEXCOORD4", subscriptOptions: StructFieldOptions.Optional);
             public static FieldDescriptor weights = new FieldDescriptor(Attributes.name, "weights", "ATTRIBUTES_NEED_BLENDWEIGHTS", ShaderValueType.Float4,

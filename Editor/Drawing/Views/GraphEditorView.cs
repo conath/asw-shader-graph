@@ -16,7 +16,6 @@ using UnityEditor.VersionControl;
 using UnityEditor.Searcher;
 
 using Unity.Profiling;
-using UnityEditor.ShaderGraph.Drawing.Views.Blackboard;
 
 namespace UnityEditor.ShaderGraph.Drawing
 {
@@ -212,11 +211,6 @@ namespace UnityEditor.ShaderGraph.Drawing
                 m_GraphView.AddManipulator(new RectangleSelector());
                 m_GraphView.AddManipulator(new ClickSelector());
                 m_GraphView.RegisterCallback<KeyDownEvent>(OnKeyDown);
-<<<<<<< HEAD
-                m_GraphView.RegisterCallback<MouseUpEvent>(evt => { m_GraphView.ResetSelectedBlockNodes(); });
-                // This takes care of when a property is dragged from BB and then the drag is ended by the Escape key, hides the scroll boundary regions if so
-                m_GraphView.RegisterCallback<DragExitedEvent>(evt => { m_BlackboardProvider.blackboard.HideScrollBoundaryRegions(); });
-=======
                 // Bugfix 1312222. Running 'ResetSelectedBlockNodes' on all mouse up interactions will break selection
                 // after changing tabs. This was originally added to fix a bug with middle-mouse clicking while dragging a block node.
                 m_GraphView.RegisterCallback<MouseUpEvent>(evt => { if (evt.button == (int)MouseButton.MiddleMouse) m_GraphView.ResetSelectedBlockNodes(); });
@@ -226,7 +220,6 @@ namespace UnityEditor.ShaderGraph.Drawing
                     blackboardController.blackboard.OnDragExitedEvent(evt);
                     blackboardController.blackboard.hideDragIndicatorAction?.Invoke();
                 });
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 RegisterGraphViewCallbacks();
                 content.Add(m_GraphView);
@@ -299,12 +292,8 @@ namespace UnityEditor.ShaderGraph.Drawing
 
         private void CreateBlackboard()
         {
-<<<<<<< HEAD
-            m_BlackboardProvider = new BlackboardProvider(m_Graph, m_GraphView);
-=======
             var blackboardViewModel = new BlackboardViewModel() { parentView = graphView, model = m_Graph, title = assetName };
             m_BlackboardController = new BlackboardController(m_Graph, blackboardViewModel, m_Graph.owner.graphDataStore);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void AddContexts()
@@ -381,17 +370,13 @@ namespace UnityEditor.ShaderGraph.Drawing
         // Because of their differences we do this is different ways, for now.
         void UpdateSubWindowsVisibility()
         {
+            // Blackboard needs to be effectively removed when hidden to avoid bugs.
             if (m_UserViewSettings.isBlackboardVisible)
-<<<<<<< HEAD
-                m_BlackboardProvider.blackboard.ShowWindow();
-            else
-                m_BlackboardProvider.blackboard.HideWindow();
-=======
                 blackboardController.blackboard.ShowWindow();
             else
                 blackboardController.blackboard.HideWindow();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
+            // Same for the inspector
             if (m_UserViewSettings.isInspectorVisible)
                 m_InspectorView.ShowWindow();
             else
@@ -698,20 +683,12 @@ namespace UnityEditor.ShaderGraph.Drawing
             }
 
             previewManager.RenderPreviews(m_EditorWindow);
-<<<<<<< HEAD
-            m_BlackboardProvider.HandleGraphChanges(wasUndoRedoPerformed);
-            if (wasUndoRedoPerformed)
-                m_InspectorView.Update(InspectorUpdateSource.GraphChanges);
-            if(m_InspectorView.DoesInspectorNeedUpdate())
-                m_InspectorView.Update(InspectorUpdateSource.PropertyInspection);
-=======
 
             if (wasUndoRedoPerformed || m_InspectorView.doesInspectorNeedUpdate)
                 m_InspectorView.Update();
 
             if (wasUndoRedoPerformed)
                 m_GraphView.RestorePersistentSelectionAfterUndoRedo();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             m_GroupHashSet.Clear();
 
@@ -1326,12 +1303,8 @@ namespace UnityEditor.ShaderGraph.Drawing
 
             ApplyMasterPreviewLayout();
 
-<<<<<<< HEAD
-            m_BlackboardProvider.blackboard.DeserializeLayout();
-=======
             m_BlackboardController.blackboard.DeserializeLayout();
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             m_InspectorView.DeserializeLayout();
         }
 
@@ -1364,12 +1337,8 @@ namespace UnityEditor.ShaderGraph.Drawing
             m_FloatingWindowsLayout.previewLayout.CalculateDockingCornerAndOffset(m_MasterPreviewView.layout, m_GraphView.layout);
             m_FloatingWindowsLayout.previewLayout.ClampToParentWindow();
 
-<<<<<<< HEAD
-            blackboardProvider.blackboard.ClampToParentLayout(m_GraphView.layout);
-=======
             blackboardController.blackboard.ClampToParentLayout(m_GraphView.layout);
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             m_InspectorView.ClampToParentLayout(m_GraphView.layout);
 
             if (m_MasterPreviewView.visible)

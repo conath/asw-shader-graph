@@ -73,14 +73,6 @@ namespace UnityEditor.ShaderGraph
             var edgesSampler = owner.GetEdges(samplerSlot.slotReference);
 
             var id = GetSlotValue(TextureInputId, generationMode);
-<<<<<<< HEAD
-            var result = string.Format("$precision4 {0} = SAMPLE_TEXTURE2D_ARRAY({1}.tex, {2}.samplerstate, {3}, {4});"
-                    , GetVariableNameForSlot(OutputSlotRGBAId)
-                    , id
-                    , edgesSampler.Any() ? GetSlotValue(SamplerInput, generationMode) : id
-                    , uvName
-                    , indexName);
-=======
             var result = string.Format("$precision4 {0} = {1}({2}.tex, {3}.samplerstate, {4}, {5});"
                 , GetVariableNameForSlot(OutputSlotRGBAId)
                 , m_EnableGlobalMipBias ? kDefaultSampleMacro : kSampleMacroNoBias
@@ -88,7 +80,6 @@ namespace UnityEditor.ShaderGraph
                 , edgesSampler.Any() ? GetSlotValue(SamplerInput, generationMode) : id
                 , uvName
                 , indexName);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             sb.AppendLine(result);
 

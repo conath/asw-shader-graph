@@ -44,105 +44,10 @@ namespace UnityEditor.ShaderGraph
             m_ReferenceNames.Clear();
             for (int i = 0; i < m_Properties.Count; i++)
                 m_ReferenceNames.Add(m_Properties[i].referenceName, i);
-<<<<<<< HEAD
         }
 
         public void SetReadOnly()
         {
-            m_ReadOnly = true;
-        }
-
-        private static bool EquivalentHLSLProperties(AbstractShaderProperty a, AbstractShaderProperty b)
-        {
-            bool equivalent = true;
-            var bHLSLProps = new List<HLSLProperty>();
-            b.ForeachHLSLProperty(bh => bHLSLProps.Add(bh));
-            a.ForeachHLSLProperty(ah =>
-            {
-                var i = bHLSLProps.FindIndex(bh => bh.name == ah.name);
-                if (i < 0)
-                    equivalent = false;
-                else
-                {
-                    var bh = bHLSLProps[i];
-                    if (!ah.ValueEquals(bh))
-                        equivalent = false;
-                    bHLSLProps.RemoveAt(i);
-                }
-            });
-            return equivalent && (bHLSLProps.Count == 0);
-        }
-
-        public void AddShaderProperty(AbstractShaderProperty prop)
-        {
-            if (m_ReadOnly)
-            {
-                Debug.LogError("ERROR attempting to add property to readonly collection");
-                return;
-            }
-
-            int propIndex = -1;
-            if (m_ReferenceNames.TryGetValue(prop.referenceName, out propIndex))
-            {
-                // existing referenceName
-                var existingProp = m_Properties[propIndex];
-                if (existingProp != prop)
-                {
-                    // duplicate reference name, but different property instances
-                    if (existingProp.GetType() != prop.GetType())
-                    {
-                        Debug.LogError("Two properties with the same reference name (" + prop.referenceName + ") using different types");
-                    }
-                    else
-                    {
-                        if (!EquivalentHLSLProperties(existingProp, prop))
-                            Debug.LogError("Two properties with the same reference name (" + prop.referenceName + ") produce different HLSL properties");
-                    }
-                }
-            }
-            else
-            {
-                // new referenceName, new property
-                propIndex = m_Properties.Count;
-                m_Properties.Add(prop);
-                m_ReferenceNames.Add(prop.referenceName, propIndex);
-            }
-        }
-
-        private List<HLSLProperty> BuildHLSLPropertyList()
-        {
-            SetReadOnly();
-            if (m_HLSLProperties == null)
-            {
-                m_HLSLProperties = new List<HLSLProperty>();
-                var dict = new Dictionary<string, int>();
-                foreach (var p in m_Properties)
-                {
-                    p.ForeachHLSLProperty(
-                        h =>
-                        {
-                            if (dict.TryGetValue(h.name, out int index))
-                            {
-                                // check if same property
-                                if (!h.ValueEquals(m_HLSLProperties[index]))
-                                    Debug.LogError("Two different HLSL Properties declared with the same name: " + h.name + " and " +  m_HLSLProperties[index].name);
-                                return;
-                            }
-                            dict.Add(h.name, m_HLSLProperties.Count);
-                            m_HLSLProperties.Add(h);
-                        }
-                    );
-                }
-            }
-            return m_HLSLProperties;
-=======
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
-        }
-
-        public void SetReadOnly()
-        {
-<<<<<<< HEAD
-=======
             m_ReadOnly = true;
         }
 
@@ -233,7 +138,6 @@ namespace UnityEditor.ShaderGraph
 
         public void GetPropertiesDeclaration(ShaderStringBuilder builder, GenerationMode mode, ConcretePrecision defaultPrecision)
         {
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             foreach (var prop in properties)
             {
                 // set up switched properties to use the inherited precision
@@ -343,11 +247,7 @@ namespace UnityEditor.ShaderGraph
                 builder.AppendLine("UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)");
 
                 builder.AppendLine("// DOTS instancing usage macros");
-<<<<<<< HEAD
-                builder.AppendLine("#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(type, Metadata_##var)");
-=======
                 builder.AppendLine("#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(type, Metadata##var)");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 builder.AppendLine("#else");
                 builder.AppendLine("#define UNITY_ACCESS_HYBRID_INSTANCED_PROP(var, type) var");
                 builder.AppendLine("#endif");

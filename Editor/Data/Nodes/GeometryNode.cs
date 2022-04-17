@@ -16,11 +16,7 @@ namespace UnityEditor.ShaderGraph
             m_PreviewMode = PreviewMode.Preview3D;
         }
 
-<<<<<<< HEAD
-        public virtual List<CoordinateSpace> validSpaces => new List<CoordinateSpace> {CoordinateSpace.Object, CoordinateSpace.View, CoordinateSpace.World, CoordinateSpace.Tangent};
-=======
         public virtual List<CoordinateSpace> validSpaces => new List<CoordinateSpace> { CoordinateSpace.Object, CoordinateSpace.View, CoordinateSpace.World, CoordinateSpace.Tangent };
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         [SerializeField]
         private CoordinateSpace m_Space = CoordinateSpace.World;

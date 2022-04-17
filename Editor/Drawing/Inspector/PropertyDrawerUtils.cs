@@ -5,10 +5,7 @@ using UnityEditor.UIElements;
 using UnityEditor.Graphing.Util;
 using UnityEditor.Graphing;
 using UnityEditor.ShaderGraph.Internal;
-<<<<<<< HEAD
-=======
 using System.Collections.Generic;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
 namespace UnityEditor.ShaderGraph.Drawing.Inspector
 {
@@ -23,8 +20,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
             return labelVisualElement;
         }
 
-<<<<<<< HEAD
-=======
         public static Label CreateLabel(string text, int indentLevel = 0)
         {
             string label = new string(' ', indentLevel * 4);
@@ -40,17 +35,12 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
             UseGraphPrecision = Precision.Graph,
         }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         internal static void AddDefaultNodeProperties(VisualElement parentElement, AbstractMaterialNode node, Action setNodesAsDirtyCallback, Action updateNodeViewsCallback)
         {
             EnumField precisionField = null;
             if (node.canSetPrecision)
             {
-<<<<<<< HEAD
-                precisionField = new EnumField(node.precision);
-=======
                 precisionField = new EnumField((UIPrecisionForShaderGraphs)node.precision);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 var propertyRow = new PropertyRow(new Label("Precision"));
                 propertyRow.Add(precisionField, (field) =>
                 {
@@ -61,11 +51,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
 
                         setNodesAsDirtyCallback?.Invoke();
                         node.owner.owner.RegisterCompleteObjectUndo("Change precision");
-<<<<<<< HEAD
-                        node.precision = (Precision) evt.newValue;
-=======
                         node.precision = (Precision)evt.newValue;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                         node.owner.ValidateGraph();
                         updateNodeViewsCallback?.Invoke();
                         node.Dirty(ModificationScope.Graph);
@@ -90,11 +76,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
 
                         setNodesAsDirtyCallback?.Invoke();
                         node.owner.owner.RegisterCompleteObjectUndo("Change preview");
-<<<<<<< HEAD
-                        node.m_PreviewMode = (PreviewMode) evt.newValue;
-=======
                         node.m_PreviewMode = (PreviewMode)evt.newValue;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                         updateNodeViewsCallback?.Invoke();
                         node.Dirty(ModificationScope.Graph);
                     });
@@ -103,8 +85,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
                     previewField.SetEnabled(false);
                 parentElement.Add(propertyRow);
             }
-<<<<<<< HEAD
-=======
 
             if (node is BlockNode bnode)
             {
@@ -204,7 +184,6 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector
             if (node is Serialization.MultiJsonInternal.UnknownNodeType)
                 fieldObj.SetEnabled(false);
             parentElement.Add(propertyRow);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
     }
 }

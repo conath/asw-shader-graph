@@ -65,11 +65,7 @@ namespace UnityEditor.ShaderGraph
                 samplerValue = textureValue;
 
             sb.AppendLine("{0} {1};", FindOutputSlot<MaterialSlot>(OutputSlotId).concreteValueType.ToShaderString(), GetVariableNameForSlot(OutputSlotId));
-<<<<<<< HEAD
-            sb.AppendLine("{0}(TEXTURE2D_ARGS({1}.tex, {2}.samplerstate), {3}, {4}, {5}, {6});", GetFunctionName(), textureValue, samplerValue, uvValue, offsetValue, strengthValue, outputValue);
-=======
             sb.AppendLine("{0}(TEXTURE2D_ARGS({1}.tex, {2}.samplerstate), {1}.GetTransformedUV({3}), {4}, {5}, {6});", GetFunctionName(), textureValue, samplerValue, uvValue, offsetValue, strengthValue, outputValue);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public void GenerateNodeFunction(FunctionRegistry registry, GenerationMode generationMode)
@@ -84,23 +80,6 @@ namespace UnityEditor.ShaderGraph
                     FindOutputSlot<MaterialSlot>(OutputSlotId).concreteValueType.ToShaderString());
                 using (s.BlockScope())
                 {
-<<<<<<< HEAD
-                    s.AppendLine("void {0}(TEXTURE2D_PARAM(Texture, Sampler), {1} UV, {2} Offset, {3} Strength, out {4} Out)",
-                        GetFunctionName(),
-                        FindInputSlot<MaterialSlot>(UVInputId).concreteValueType.ToShaderString(),
-                        FindInputSlot<MaterialSlot>(OffsetInputId).concreteValueType.ToShaderString(),
-                        FindInputSlot<MaterialSlot>(StrengthInputId).concreteValueType.ToShaderString(),
-                        FindOutputSlot<MaterialSlot>(OutputSlotId).concreteValueType.ToShaderString());
-                    using (s.BlockScope())
-                    {
-                        s.AppendLine("Offset = pow(Offset, 3) * 0.1;");
-                        s.AppendLine("$precision2 offsetU = $precision2(UV.x + Offset, UV.y);");
-                        s.AppendLine("$precision2 offsetV = $precision2(UV.x, UV.y + Offset);");
-
-                        s.AppendLine("$precision normalSample = SAMPLE_TEXTURE2D(Texture, Sampler, UV);");
-                        s.AppendLine("$precision uSample = SAMPLE_TEXTURE2D(Texture, Sampler, offsetU);");
-                        s.AppendLine("$precision vSample = SAMPLE_TEXTURE2D(Texture, Sampler, offsetV);");
-=======
                     s.AppendLine("Offset = pow(Offset, 3) * 0.1;");
                     s.AppendLine("$precision2 offsetU = $precision2(UV.x + Offset, UV.y);");
                     s.AppendLine("$precision2 offsetV = $precision2(UV.x, UV.y + Offset);");
@@ -108,7 +87,6 @@ namespace UnityEditor.ShaderGraph
                     s.AppendLine("$precision normalSample = SAMPLE_TEXTURE2D(Texture, Sampler, UV);");
                     s.AppendLine("$precision uSample = SAMPLE_TEXTURE2D(Texture, Sampler, offsetU);");
                     s.AppendLine("$precision vSample = SAMPLE_TEXTURE2D(Texture, Sampler, offsetV);");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                     s.AppendLine("$precision3 va = $precision3(1, 0, (uSample - normalSample) * Strength);");
                     s.AppendLine("$precision3 vb = $precision3(0, 1, (vSample - normalSample) * Strength);");

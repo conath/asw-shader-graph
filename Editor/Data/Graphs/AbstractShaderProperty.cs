@@ -22,13 +22,6 @@ namespace UnityEditor.ShaderGraph.Internal
             set { }
         }
 
-<<<<<<< HEAD
-        internal virtual string GetHLSLVariableName(bool isSubgraphProperty)
-        {
-            return referenceName;
-        }
-
-=======
         internal virtual string GetHLSLVariableName(bool isSubgraphProperty, GenerationMode mode)
         {
             if (mode == GenerationMode.VFX)
@@ -49,7 +42,6 @@ namespace UnityEditor.ShaderGraph.Internal
             return GetConnectionStateVariableName(referenceName + "_" + objectId);
         }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         // NOTE: this does not tell you the HLSLDeclaration of the entire property...
         // instead, it tells you what the DEFAULT HLSL Declaration would be, IF the property makes use of the default
         // to check ACTUAL HLSL Declaration types, enumerate the HLSL Properties and check their HLSLDeclarations...
@@ -82,11 +74,7 @@ namespace UnityEditor.ShaderGraph.Internal
 
         ConcretePrecision m_ConcretePrecision = ConcretePrecision.Single;
         public ConcretePrecision concretePrecision => m_ConcretePrecision;
-<<<<<<< HEAD
-        internal void ValidateConcretePrecision(ConcretePrecision graphPrecision)
-=======
         internal void SetupConcretePrecision(ConcretePrecision defaultPrecision)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             m_ConcretePrecision = precision.ToConcrete(defaultPrecision, defaultPrecision);
         }
@@ -127,21 +115,12 @@ namespace UnityEditor.ShaderGraph.Internal
 
         internal abstract void ForeachHLSLProperty(Action<HLSLProperty> action);
 
-<<<<<<< HEAD
-        internal virtual string GetPropertyAsArgumentStringForVFX()
-        {
-            return GetPropertyAsArgumentString();
-        }
-
-        internal abstract string GetPropertyAsArgumentString();
-=======
         internal virtual string GetPropertyAsArgumentStringForVFX(string precisionString)
         {
             return GetPropertyAsArgumentString(precisionString);
         }
 
         internal abstract string GetPropertyAsArgumentString(string precisionString);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         internal abstract AbstractMaterialNode ToConcreteNode();
         internal abstract PreviewProperty GetPreviewMaterialProperty();
 
@@ -267,32 +246,15 @@ namespace UnityEditor.ShaderGraph.Internal
 
         static string[,] kValueTypeStrings = new string[(int)HLSLType.FirstObjectType, 2]
         {
-<<<<<<< HEAD
-                {"float", "half"},
-                {"float2", "half2"},
-                {"float3", "half3"},
-                {"float4", "half4"},
-                {"float4x4", "half4x4"}
-=======
             {"float", "half"},
             {"float2", "half2"},
             {"float3", "half3"},
             {"float4", "half4"},
             {"float4x4", "half4x4"}
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         };
 
         static string[] kObjectTypeStrings = new string[(int)HLSLType._CUSTOM - (int)HLSLType.FirstObjectType]
         {
-<<<<<<< HEAD
-                "TEXTURE2D",
-                "TEXTURE3D",
-                "TEXTURECUBE",
-                "TEXTURE2D_ARRAY",
-                "SAMPLER",
-        };
-
-=======
             "TEXTURE2D",
             "TEXTURE3D",
             "TEXTURECUBE",
@@ -309,7 +271,6 @@ namespace UnityEditor.ShaderGraph.Internal
                 type == HLSLType._Texture2DArray;
         }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         public string GetValueTypeString()
         {
             if (type < HLSLType.FirstObjectType)

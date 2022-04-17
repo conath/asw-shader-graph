@@ -133,27 +133,6 @@ return objectScale;");
                 s.AppendLine($"$precision ComputePerPixelHeightDisplacement_{GetVariableNameForNode()}($precision2 texOffsetCurrent, $precision lod, PerPixelHeightDisplacementParam param, TEXTURE2D_PARAM(heightTexture, heightSampler))");
                 using (s.BlockScope())
                 {
-<<<<<<< HEAD
-                    s.AppendLine("// Required struct and function for the ParallaxOcclusionMapping function:");
-                    s.AppendLine($"$precision ComputePerPixelHeightDisplacement_{GetVariableNameForNode()}($precision2 texOffsetCurrent, $precision lod, PerPixelHeightDisplacementParam param, TEXTURE2D_PARAM(heightTexture, heightSampler))");
-                    using (s.BlockScope())
-                    {
-                        s.AppendLine("return SAMPLE_TEXTURE2D_LOD(heightTexture, heightSampler, param.uv + texOffsetCurrent, lod).r;");
-                    }
-                            // heightmap,
-                            // edgesSampler.Any() ? GetSlotValue(kHeightmapSamplerSlotId, generationMode) : "sampler" + heightmap);
-
-                    s.AppendLine($"#define ComputePerPixelHeightDisplacement ComputePerPixelHeightDisplacement_{GetVariableNameForNode()}");
-                    s.AppendLine($"#define POM_NAME_ID {GetVariableNameForNode()}");
-                    s.AppendLine($"#define POM_USER_DATA_PARAMETERS , TEXTURE2D_PARAM(heightTexture, samplerState)");
-                    s.AppendLine($"#define POM_USER_DATA_ARGUMENTS , TEXTURE2D_ARGS(heightTexture, samplerState)");
-                    s.AppendLine(perPixelDisplacementInclude);
-                    s.AppendLine($"#undef ComputePerPixelHeightDisplacement");
-                    s.AppendLine($"#undef POM_NAME_ID");
-                    s.AppendLine($"#undef POM_USER_DATA_PARAMETERS");
-                    s.AppendLine($"#undef POM_USER_DATA_ARGUMENTS");
-                });
-=======
                     s.AppendLine("return SAMPLE_TEXTURE2D_LOD(heightTexture, heightSampler, param.uv + texOffsetCurrent, lod).r;");
                 }
                 // heightmap,
@@ -169,7 +148,6 @@ return objectScale;");
                 s.AppendLine($"#undef POM_USER_DATA_PARAMETERS");
                 s.AppendLine($"#undef POM_USER_DATA_ARGUMENTS");
             });
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public void GenerateNodeCode(ShaderStringBuilder sb, GenerationMode generationMode)
@@ -218,11 +196,7 @@ $precision2 {tmpUVs} = {uvs} * {tiling} + {offset};
 
             sb.AppendLines($@"
 $precision {tmpOutHeight};
-<<<<<<< HEAD
-$precision2 {GetVariableNameForSlot(kParallaxUVsOutputSlotId)} = {uvs} + ParallaxOcclusionMapping{GetVariableNameForNode()}({lod}, {lodThreshold}, {steps}, {tmpViewDirUV}, {tmpPOMParam}, {tmpOutHeight}, TEXTURE2D_ARGS({heightmap}.tex, {sampler}.samplerstate));
-=======
 $precision2 {GetVariableNameForSlot(kParallaxUVsOutputSlotId)} = {heightmap}.GetTransformedUV({tmpUVs}) + ParallaxOcclusionMapping{GetFunctionName()}({lod}, {lodThreshold}, {steps}, {tmpViewDirUV}, {tmpPOMParam}, {tmpOutHeight}, TEXTURE2D_ARGS({heightmap}.tex, {sampler}.samplerstate));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
 $precision {GetVariableNameForSlot(kPixelDepthOffsetOutputSlotId)} = ({tmpMaxHeight} - {tmpOutHeight} * {tmpMaxHeight}) / max({tmpNdotV}, 0.0001);
 ");

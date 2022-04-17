@@ -67,8 +67,6 @@ namespace UnityEditor.ShaderGraph
         public void AppendNewLine()
         {
             m_StringBuilder.Append(k_NewLineString);
-<<<<<<< HEAD
-=======
         }
 
         private void AppendLine(string value, int startIndex, int count)
@@ -79,7 +77,6 @@ namespace UnityEditor.ShaderGraph
                 m_StringBuilder.Append(value, startIndex, count);
             }
             AppendNewLine();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public void AppendLine(string value)

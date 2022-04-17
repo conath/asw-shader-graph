@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:com.unity.shadergraph/ShaderGraphLibrary/Nature/SpeedTree8Wind.hlsl.meta
 guid: 8b4aa8c48881d4142b1c30e408b503d8
-========
-guid: 637c27b6fe6224a06b2b066769d0a6e6
->>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76:com.unity.render-pipelines.universal/Shaders/Particles/ParticlesDepthNormalsPass.hlsl.meta
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []

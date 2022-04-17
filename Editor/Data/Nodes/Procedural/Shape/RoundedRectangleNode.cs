@@ -30,17 +30,12 @@ namespace UnityEditor.ShaderGraph
     Radius = max(min(min(abs(Radius * 2), abs(Width)), abs(Height)), 1e-5);
     $precision2 uv = abs(UV * 2 - 1) - $precision2(Width, Height) + Radius;
     $precision d = length(max(0, uv)) / Radius;
-<<<<<<< HEAD
-    $precision fwd = max(fwidth(d), 1e-5);
-    Out = saturate((1 - d) / fwd);
-=======
 #if defined(SHADER_STAGE_RAY_TRACING)
     Out = saturate((1 - d) * 1e7);
 #else
     $precision fwd = max(fwidth(d), 1e-5);
     Out = saturate((1 - d) / fwd);
 #endif
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 }";
         }
     }

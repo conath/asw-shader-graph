@@ -109,13 +109,7 @@ namespace UnityEditor.ShaderGraph
 
         public override string GetVariableNameForNode()
         {
-<<<<<<< HEAD
-            return string.Format(@"SamplerState_{0}_{1}",
-                Enum.GetName(typeof(TextureSamplerState.FilterMode), filter), 
-                Enum.GetName(typeof(TextureSamplerState.WrapMode), wrap));
-=======
             return TextureSamplerState.BuildSamplerStateName(filter, wrap, anisotropic);
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public AbstractShaderProperty AsShaderProperty()

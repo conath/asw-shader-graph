@@ -370,21 +370,6 @@ namespace UnityEditor.ShaderGraph
             set => m_PreviewMode = value;
         }
 
-        // Some state has been changed that requires checking for the auto add/removal of blocks.
-        // This needs to be checked at a later point in time so actions like replace (remove + add) don't remove blocks.
-        internal bool checkAutoAddRemoveBlocks { get; set; }
-
-        // NOTE: having preview mode default to 3D preserves the old behavior of pre-existing subgraphs
-        // if we change this, we would have to introduce a versioning step if we want to maintain the old behavior
-        [SerializeField]
-        private PreviewMode m_PreviewMode = PreviewMode.Preview3D;
-
-        public PreviewMode previewMode
-        {
-            get => m_PreviewMode;
-            set => m_PreviewMode = value;
-        }
-
         [SerializeField]
         JsonRef<AbstractMaterialNode> m_OutputNode;
 
@@ -1009,11 +994,7 @@ namespace UnityEditor.ShaderGraph
 
         void RemoveNodeNoValidate(AbstractMaterialNode node)
         {
-<<<<<<< HEAD
-            if (!m_NodeDictionary.ContainsKey(node.objectId) && node.isActive)
-=======
             if (!m_NodeDictionary.ContainsKey(node.objectId) && node.isActive && !m_RemovedNodes.Contains(node))
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             {
                 throw new InvalidOperationException("Cannot remove a node that doesn't exist.");
             }
@@ -1175,8 +1156,7 @@ namespace UnityEditor.ShaderGraph
         {
             e = m_Edges.FirstOrDefault(x => x.Equals(e));
             if (e == null)
-                return;
-                //throw new ArgumentException("Trying to remove an edge that does not exist.", "e");
+                throw new ArgumentException("Trying to remove an edge that does not exist.", "e");
             m_Edges.Remove(e as Edge);
 
             AbstractMaterialNode input = e.inputSlot.node, output = e.outputSlot.node;
@@ -1321,10 +1301,6 @@ namespace UnityEditor.ShaderGraph
         {
             foreach (var prop in properties)
             {
-<<<<<<< HEAD
-                // ugh, this needs to be moved to the gradient property implementation
-                if(prop is GradientShaderProperty gradientProp && generationMode == GenerationMode.Preview)
-=======
                 // For VFX Shader generation, we must omit exposed properties from the Material CBuffer.
                 // This is because VFX computes properties on the fly in the vertex stage, and packed into interpolator.
                 if (generationMode == GenerationMode.VFX && prop.isExposed)
@@ -1335,7 +1311,6 @@ namespace UnityEditor.ShaderGraph
 
                 // ugh, this needs to be moved to the gradient property implementation
                 if (prop is GradientShaderProperty gradientProp && generationMode == GenerationMode.Preview)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     GradientUtil.GetGradientPropertiesForPreview(collector, gradientProp.referenceName, gradientProp.value);
                     continue;
@@ -1947,11 +1922,7 @@ namespace UnityEditor.ShaderGraph
             if (other == null)
                 throw new ArgumentException("Can only replace with another AbstractMaterialGraph", "other");
 
-<<<<<<< HEAD
-            concretePrecision = other.concretePrecision;
-=======
             m_GraphPrecision = other.m_GraphPrecision;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             m_PreviewMode = other.m_PreviewMode;
             m_OutputNode = other.m_OutputNode;
 
@@ -2136,12 +2107,9 @@ namespace UnityEditor.ShaderGraph
             {
                 // cannot paste block nodes, or unknown node types
                 if ((node is BlockNode) || (node is MultiJsonInternal.UnknownNodeType))
-<<<<<<< HEAD
-=======
                     continue;
 
                 if (!IsInputAllowedInGraph(node))
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     continue;
 
                 AbstractMaterialNode pastedNode = node;
@@ -2550,41 +2518,23 @@ namespace UnityEditor.ShaderGraph
                                 if (descriptor == BlockFields.SurfaceDescription.NormalOS)
                                 {
                                     NormalMaterialSlot norm = newSlot as NormalMaterialSlot;
-<<<<<<< HEAD
-                                    if(norm.space != CoordinateSpace.Object)
-=======
                                     if (norm.space != CoordinateSpace.Object)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                                     {
                                         norm.space = CoordinateSpace.Object;
                                     }
                                 }
-<<<<<<< HEAD
-                                else if(descriptor == BlockFields.SurfaceDescription.NormalTS)
-                                {
-                                    NormalMaterialSlot norm = newSlot as NormalMaterialSlot;
-                                    if(norm.space != CoordinateSpace.Tangent)
-=======
                                 else if (descriptor == BlockFields.SurfaceDescription.NormalTS)
                                 {
                                     NormalMaterialSlot norm = newSlot as NormalMaterialSlot;
                                     if (norm.space != CoordinateSpace.Tangent)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                                     {
                                         norm.space = CoordinateSpace.Tangent;
                                     }
                                 }
-<<<<<<< HEAD
-                                else if(descriptor == BlockFields.SurfaceDescription.NormalWS)
-                                {
-                                    NormalMaterialSlot norm = newSlot as NormalMaterialSlot;
-                                    if(norm.space != CoordinateSpace.World)
-=======
                                 else if (descriptor == BlockFields.SurfaceDescription.NormalWS)
                                 {
                                     NormalMaterialSlot norm = newSlot as NormalMaterialSlot;
                                     if (norm.space != CoordinateSpace.World)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                                     {
                                         norm.space = CoordinateSpace.World;
                                     }

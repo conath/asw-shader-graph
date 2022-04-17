@@ -28,27 +28,11 @@ namespace UnityEditor.ShaderGraph.Internal
             }
             set
             {
-<<<<<<< HEAD
-                m_Name = value;
-                // Updates any views associated with this input so that display names stay up to date
-                m_displayNameUpdateTrigger?.Invoke(m_Name);
-            }
-        }
-
-        // This delegate and the associated callback can be bound to in order for any one that cares about display name changes to be notified
-        internal delegate void ChangeDisplayNameCallback(string newDisplayName);
-        ChangeDisplayNameCallback m_displayNameUpdateTrigger;
-        internal ChangeDisplayNameCallback displayNameUpdateTrigger
-        {
-            get => m_displayNameUpdateTrigger;
-            set => m_displayNameUpdateTrigger = value;
-=======
                 // this is a raw set of the display name
                 // if you want to a fully graph-connected set-and-sanitize-and-update,
                 // call SetDisplayNameAndSanitizeForGraph() instead
                 m_Name = value;
             }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         // This delegate and the associated callback can be bound to in order for any one that cares about display name changes to be notified
@@ -178,8 +162,6 @@ namespace UnityEditor.ShaderGraph.Internal
 
         public virtual string referenceNameForEditing => referenceName;
 
-<<<<<<< HEAD
-=======
         public override void OnBeforeDeserialize()
         {
             // if serialization doesn't write to m_DefaultRefNameVersion, then it is an old shader input, and should use the old default naming scheme
@@ -187,7 +169,6 @@ namespace UnityEditor.ShaderGraph.Internal
             base.OnBeforeDeserialize();
         }
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         // This is required to handle Material data serialized with "_Color_GUID" reference names
         // m_DefaultReferenceName expects to match the material data and previously used PropertyType
         // ColorShaderProperty is the only case where PropertyType doesn't match ConcreteSlotValueType
@@ -252,10 +233,6 @@ namespace UnityEditor.ShaderGraph.Internal
 
         internal abstract bool isExposable { get; }
         internal virtual bool isAlwaysExposed => false;
-<<<<<<< HEAD
-        internal abstract bool isRenamable { get; }
-        internal virtual bool isReferenceRenamable => isRenamable;
-=======
 
         // this controls whether the UI allows the user to rename the display and reference names
         internal abstract bool isRenamable { get; }
@@ -290,7 +267,6 @@ namespace UnityEditor.ShaderGraph.Internal
         {
             return variableName + "_IsConnected";
         }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         internal abstract ShaderInput Copy();
 

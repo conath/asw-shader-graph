@@ -68,10 +68,7 @@ namespace UnityEditor.ShaderGraph
         public CustomFunctionNode()
         {
             UpdateNodeName();
-<<<<<<< HEAD
-=======
             synonyms = new string[] { "code", "HLSL" };
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void UpdateNodeName()
@@ -174,15 +171,9 @@ namespace UnityEditor.ShaderGraph
                 }
 
                 // call function
-<<<<<<< HEAD
-                sb.AppendIndentation();
-                sb.Append(functionName);
-                sb.Append("_$precision(");
-=======
                 sb.TryAppendIndentation();
                 sb.Append(hlslFunctionName);
                 sb.Append("(");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 bool first = true;
 
                 foreach (var input in inputSlots)
@@ -229,35 +220,6 @@ namespace UnityEditor.ShaderGraph
             switch (slot.concreteValueType)
             {
                 case ConcreteSlotValueType.Texture2D:
-<<<<<<< HEAD
-                    {
-                        var slotVariable = GetVariableNameForSlot(slot.id);
-                        sb.AppendIndentation();
-                        sb.Append(slotVariable);
-                        sb.Append(".samplerstate = default_sampler_Linear_Repeat;");
-                        sb.AppendNewLine();
-                        sb.AppendIndentation();
-                        sb.Append(slotVariable);
-                        sb.Append(".texelSize = float4(1.0f/128.0f, 1.0f/128.0f, 128.0f, 128.0f);");
-                        sb.AppendNewLine();
-                        sb.AppendIndentation();
-                        sb.Append(slotVariable);
-                        sb.Append(".scaleTranslate = float4(1.0f, 1.0f, 0.0f, 0.0f);");
-                        sb.AppendNewLine();
-                    }
-                    break;
-                case ConcreteSlotValueType.Texture3D:
-                case ConcreteSlotValueType.Texture2DArray:
-                case ConcreteSlotValueType.Cubemap:
-                    {
-                        var slotVariable = GetVariableNameForSlot(slot.id);
-                        sb.AppendIndentation();
-                        sb.Append(slotVariable);
-                        sb.Append(".samplerstate = default_sampler_Linear_Repeat;");
-                        sb.AppendNewLine();
-                    }
-                    break;
-=======
                 {
                     var slotVariable = GetVariableNameForSlot(slot.id);
                     sb.TryAppendIndentation();
@@ -285,7 +247,6 @@ namespace UnityEditor.ShaderGraph
                     sb.AppendNewLine();
                 }
                 break;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
         }
 
@@ -329,13 +290,8 @@ namespace UnityEditor.ShaderGraph
                 GetOutputSlots(outputSlots);
 
                 sb.Append("void ");
-<<<<<<< HEAD
-                sb.Append(functionName);
-                sb.Append("_$precision(");
-=======
                 sb.Append(hlslFunctionName);
                 sb.Append("(");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 var first = true;
 
@@ -537,8 +493,6 @@ namespace UnityEditor.ShaderGraph
                 }
                 ChangeVersion(1);
             }
-<<<<<<< HEAD
-=======
         }
 
         public NeededTransform[] RequiresTransform(ShaderStageCapability stageCapability = ShaderStageCapability.All)
@@ -548,7 +502,6 @@ namespace UnityEditor.ShaderGraph
                 NeededTransform.ObjectToWorld,
                 NeededTransform.WorldToObject
             };
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
     }
 }

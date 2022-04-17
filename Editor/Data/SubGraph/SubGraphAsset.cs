@@ -123,13 +123,7 @@ namespace UnityEditor.ShaderGraph
         Dictionary<string, SlotDependencyInfo> m_OutputDependencies = new Dictionary<string, SlotDependencyInfo>();
 
 
-<<<<<<< HEAD
-        public PreviewMode previewMode;
-
-        public void WriteData(IEnumerable<AbstractShaderProperty> inputs, IEnumerable<ShaderKeyword> keywords, IEnumerable<AbstractShaderProperty> nodeProperties, IEnumerable<MaterialSlot> outputs, IEnumerable<Target> unsupportedTargets)
-=======
         public SlotDependencyInfo GetInputDependencies(string slotName)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             m_InputDependencies.TryGetValue(slotName, out SlotDependencyInfo result);
             return result;

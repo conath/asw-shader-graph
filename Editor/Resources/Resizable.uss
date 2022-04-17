@@ -11,32 +11,20 @@ ResizableElement
 
 ResizableElement #right
 {
-<<<<<<< HEAD
-    width: 12px;
-    margin-right: -8;
-=======
     width: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     flex-direction: column;
     align-items: stretch;
 }
 
 ResizableElement #left
 {
-<<<<<<< HEAD
-    width: 14px;
-    margin-left: -8;
-=======
     width: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     flex-direction: column;
     align-items: stretch;
 }
 ResizableElement #middle
 {
     flex:1 0 auto;
-    margin-top: -8;
-    margin-bottom: -12;
     flex-direction: column;
     align-items: stretch;
 }
@@ -44,13 +32,7 @@ ResizableElement #middle
 
 ResizableElement #left #top-left-resize
 {
-<<<<<<< HEAD
-    height: 14px;
-    margin: -4px;
-    margin-right: -4px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-up-left;
 }
 
@@ -62,23 +44,13 @@ ResizableElement #left #left-resize
 
 ResizableElement #left #bottom-left-resize
 {
-<<<<<<< HEAD
-    height: 12px;
-    margin: -4px;
-    margin-right: -4px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-up-right;
 }
 
 ResizableElement #middle #top-resize
 {
-<<<<<<< HEAD
-    height: 14px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-vertical;
 }
 
@@ -89,42 +61,24 @@ ResizableElement #middle #middle-center
 
 ResizableElement #middle #bottom-resize
 {
-<<<<<<< HEAD
-    height: 14px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-vertical;
 }
 
 ResizableElement #right #top-right-resize
 {
-<<<<<<< HEAD
-    height: 14px;
-    margin: -4px;
-    margin-left: -4px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-up-right;
 }
 
 ResizableElement #right #right-resize
 {
     flex:1 0 auto;
-    margin-right: -2px;
-    margin-left: 2px;
     cursor: resize-horizontal;
 }
 
 ResizableElement #right #bottom-right-resize
 {
-<<<<<<< HEAD
-    height: 14px;
-    margin: -4px;
-    margin-left: -8px;
-=======
     height: 10px;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     cursor: resize-up-left;
 }

@@ -272,21 +272,14 @@ namespace UnityEditor.ShaderGraph.Serialization
             {
                 builder.AppendLine("/* UNKNOWN PROPERTY: " + referenceName + " */");
             }
-<<<<<<< HEAD
-=======
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             internal override bool AllowHLSLDeclaration(HLSLDeclaration decl) => false;
             internal override void ForeachHLSLProperty(Action<HLSLProperty> action)
             {
                 action(new HLSLProperty(HLSLType._float, referenceName, HLSLDeclaration.Global, concretePrecision));
             }
-<<<<<<< HEAD
-            internal override string GetPropertyAsArgumentString() { return ""; }
-=======
 
             internal override string GetPropertyAsArgumentString(string precisionString) { return ""; }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             internal override AbstractMaterialNode ToConcreteNode() { return null; }
 
             internal override PreviewProperty GetPreviewMaterialProperty()
@@ -355,11 +348,7 @@ namespace UnityEditor.ShaderGraph.Serialization
 
             public override ConcreteSlotValueType concreteValueType => ConcreteSlotValueType.Vector1;
 
-<<<<<<< HEAD
-            public override void AddDefaultProperty(PropertyCollector properties, GenerationMode generationMode) {}
-=======
             public override void AddDefaultProperty(PropertyCollector properties, GenerationMode generationMode) { }
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             public override void CopyValuesFrom(MaterialSlot foundSlot)
             {
@@ -380,10 +369,7 @@ namespace UnityEditor.ShaderGraph.Serialization
                 SetOverrideActiveState(ActiveState.ExplicitInactive, false);
                 SetActive(false, false);
             }
-<<<<<<< HEAD
-=======
 
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             public UnknownNodeType(string jsonData)
             {
                 this.jsonData = jsonData;

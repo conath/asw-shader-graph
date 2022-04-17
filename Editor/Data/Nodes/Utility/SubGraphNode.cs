@@ -270,9 +270,6 @@ namespace UnityEditor.ShaderGraph
                 var inSlotId = m_PropertyIds[m_PropertyGuids.IndexOf(prop.guid.ToString())];
                 arguments.Add(GetSlotValue(inSlotId, generationMode, prop.concretePrecision));
 
-<<<<<<< HEAD
-                arguments.Add(GetSlotValue(inSlotId, generationMode, prop.concretePrecision));
-=======
                 if (prop.isConnectionTestable)
                     arguments.Add(IsSlotConnected(inSlotId) ? "true" : "false");
             }
@@ -285,7 +282,6 @@ namespace UnityEditor.ShaderGraph
                     arguments.Add(dropdown.IndexOfName(name).ToString());
                 else
                     arguments.Add(dropdown.value.ToString());
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
 
             // pass surface inputs through
@@ -301,11 +297,7 @@ namespace UnityEditor.ShaderGraph
                 arguments.Add(feedbackVar);
             }
 
-<<<<<<< HEAD
-            sb.AppendIndentation();
-=======
             sb.TryAppendIndentation();
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             sb.Append(asset.functionName);
             sb.Append("(");
             bool firstArg = true;
@@ -422,15 +414,6 @@ namespace UnityEditor.ShaderGraph
                 switch (prop.concreteShaderValueType)
                 {
                     case ConcreteSlotValueType.SamplerState:
-<<<<<<< HEAD
-                        {
-                            var tSlot = slot as SamplerStateMaterialSlot;
-                            var tProp = prop as SamplerStateShaderProperty;
-                            if (tSlot != null && tProp != null)
-                                tSlot.defaultSamplerState = tProp.value;
-                        }
-                        break;
-=======
                     {
                         var tSlot = slot as SamplerStateMaterialSlot;
                         var tProp = prop as SamplerStateShaderProperty;
@@ -438,7 +421,6 @@ namespace UnityEditor.ShaderGraph
                             tSlot.defaultSamplerState = tProp.value;
                     }
                     break;
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     case ConcreteSlotValueType.Matrix4:
                     {
                         var tSlot = slot as Matrix4MaterialSlot;

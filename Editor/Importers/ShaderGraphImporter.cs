@@ -24,15 +24,9 @@ namespace UnityEditor.ShaderGraph
     // sure that all shader graphs get re-imported. Re-importing is required,
     // because the shader graph codegen is different for V2.
     // This ifdef can be removed once V2 is the only option.
-<<<<<<< HEAD
-    [ScriptedImporter(115, Extension, -902)]
-#else
-    [ScriptedImporter(47, Extension, -902)]
-=======
     [ScriptedImporter(124, Extension, -902)]
 #else
     [ScriptedImporter(53, Extension, -902)]
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 #endif
 
     class ShaderGraphImporter : ScriptedImporter
@@ -846,11 +840,7 @@ Shader ""Hidden/GraphErrorShader2""
 
             foreach (var property in graph.properties)
             {
-<<<<<<< HEAD
-                if (!property.isExposable || !property.generatePropertyBlock)
-=======
                 if (!property.isExposed)
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     continue;
                 }
@@ -872,11 +862,7 @@ Shader ""Hidden/GraphErrorShader2""
 
                 propertiesStages.Add(stageCapability);
                 inputProperties.Add(property);
-<<<<<<< HEAD
-                codeSnippets.Add($",{nl}{indent}/* Property: {property.displayName} */ {property.GetPropertyAsArgumentStringForVFX()}");
-=======
                 codeSnippets.Add($",{nl}{indent}/* Property: {property.displayName} */ {property.GetPropertyAsArgumentStringForVFX(property.concretePrecision.ToShaderString())}");
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
 
             sharedCodeIndices.Add(codeSnippets.Count);

@@ -36,13 +36,8 @@ namespace UnityEditor.ShaderGraph
         // Node generations
         public virtual void GenerateNodeCode(ShaderStringBuilder sb, GenerationMode generationMode)
         {
-<<<<<<< HEAD
-			sb.AppendLine(string.Format("$precision {0} = {1}.texelSize.z;", GetVariableNameForSlot(OutputSlotWId), GetSlotValue(TextureInputId, generationMode)));
-			sb.AppendLine(string.Format("$precision {0} = {1}.texelSize.w;", GetVariableNameForSlot(OutputSlotHId), GetSlotValue(TextureInputId, generationMode)));
-=======
             sb.AppendLine(string.Format("$precision {0} = {1}.texelSize.z;", GetVariableNameForSlot(OutputSlotWId), GetSlotValue(TextureInputId, generationMode)));
             sb.AppendLine(string.Format("$precision {0} = {1}.texelSize.w;", GetVariableNameForSlot(OutputSlotHId), GetSlotValue(TextureInputId, generationMode)));
->>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public bool RequiresMeshUV(UVChannel channel, ShaderStageCapability stageCapability)
