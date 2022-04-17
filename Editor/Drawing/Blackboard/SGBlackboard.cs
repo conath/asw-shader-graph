@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+﻿using System;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace UnityEditor.ShaderGraph.Drawing.Views.Blackboard
+{
+    class SGBlackboard : GraphSubWindow, ISelection
+=======
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,10 +42,17 @@ namespace UnityEditor.ShaderGraph.Drawing
     }
 
     class SGBlackboard : GraphSubWindow, ISGControlledElement<BlackboardController>
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     {
         VisualElement m_ScrollBoundaryTop;
         VisualElement m_ScrollBoundaryBottom;
         VisualElement m_BottomResizer;
+<<<<<<< HEAD
+
+        bool m_scrollToTop = false;
+        bool m_scrollToBottom = false;
+        bool m_IsFieldBeingDragged = false;
+=======
         TextField m_PathLabelTextField;
         public VisualElement m_VariantExceededHelpBox;
 
@@ -106,11 +123,38 @@ namespace UnityEditor.ShaderGraph.Drawing
         bool m_EditPathCancelled = false;
         bool m_IsUserDraggingItems = false;
         int m_InsertIndex = -1;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         const int k_DraggedPropertyScrollSpeed = 6;
 
         public override string windowTitle => "Blackboard";
         public override string elementName => "SGBlackboard";
+<<<<<<< HEAD
+        public override string styleName => "Blackboard";
+        public override string UxmlName => "GraphView/Blackboard";
+        public override string layoutKey => "UnityEditor.ShaderGraph.Blackboard";
+
+        public Action<SGBlackboard> addItemRequested { get; set; }
+        public Action<SGBlackboard, int, VisualElement> moveItemRequested { get; set; }
+
+        public SGBlackboard(GraphView associatedGraphView) : base(associatedGraphView)
+        {
+            windowDockingLayout.dockingLeft = true;
+
+            var addButton = m_MainContainer.Q(name: "addButton") as Button;
+            addButton.clickable.clicked += () => {
+                if (addItemRequested != null)
+                {
+                    addItemRequested(this);
+                }
+            };
+
+            // These callbacks make sure the scroll boundary regions don't show up user is not dragging/dropping properties
+            this.RegisterCallback<MouseUpEvent>((evt => HideScrollBoundaryRegions()));
+            this.RegisterCallback<DragExitedEvent>(evt => HideScrollBoundaryRegions());
+
+            associatedGraphView.RegisterCallback<MouseLeaveEvent>(evt => HideScrollBoundaryRegions());
+=======
         public override string styleName => "SGBlackboard";
         public override string UxmlName => "Blackboard/SGBlackboard";
         public override string layoutKey => "UnityEditor.ShaderGraph.Blackboard";
@@ -167,6 +211,7 @@ namespace UnityEditor.ShaderGraph.Drawing
 
             // This callback makes sure the drag indicator is shown again if user exits and then re-enters blackboard while dragging
             RegisterCallback<MouseEnterEvent>(OnMouseEnterEvent);
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             m_ScrollBoundaryTop = m_MainContainer.Q(name: "scrollBoundaryTop");
             m_ScrollBoundaryTop.RegisterCallback<MouseEnterEvent>(ScrollRegionTopEnter);
@@ -183,12 +228,40 @@ namespace UnityEditor.ShaderGraph.Drawing
             HideScrollBoundaryRegions();
 
             // Sets delegate association so scroll boundary regions are hidden when a blackboard property is dropped into graph
+<<<<<<< HEAD
+            if (associatedGraphView is MaterialGraphView materialGraphView)
+=======
             if (ParentView is MaterialGraphView materialGraphView)
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 materialGraphView.blackboardFieldDropDelegate = HideScrollBoundaryRegions;
 
             isWindowScrollable = true;
             isWindowResizable = true;
             focusable = true;
+<<<<<<< HEAD
+        }
+
+        public void ShowScrollBoundaryRegions()
+        {
+            if (!m_IsFieldBeingDragged && scrollableHeight > 0)
+            {
+                // Interferes with scrolling functionality of properties with the bottom scroll boundary
+                m_BottomResizer.style.visibility = Visibility.Hidden;
+
+                m_IsFieldBeingDragged = true;
+                var contentElement = m_MainContainer.Q(name: "content");
+                scrollViewIndex = contentElement.IndexOf(m_ScrollView);
+                contentElement.Insert(scrollViewIndex, m_ScrollBoundaryTop);
+                scrollViewIndex = contentElement.IndexOf(m_ScrollView);
+                contentElement.Insert(scrollViewIndex + 1, m_ScrollBoundaryBottom);
+            }
+        }
+
+        public void HideScrollBoundaryRegions()
+        {
+            m_BottomResizer.style.visibility = Visibility.Visible;
+            m_IsFieldBeingDragged = false;
+=======
 
             m_DragIndicator = new VisualElement();
             m_DragIndicator.name = "categoryDragIndicator";
@@ -249,10 +322,13 @@ namespace UnityEditor.ShaderGraph.Drawing
         {
             m_BottomResizer.style.visibility = Visibility.Visible;
             m_IsUserDraggingItems = false;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             m_ScrollBoundaryTop.RemoveFromHierarchy();
             m_ScrollBoundaryBottom.RemoveFromHierarchy();
         }
 
+<<<<<<< HEAD
+=======
         int InsertionIndex(Vector2 pos)
         {
             VisualElement owner = contentContainer != null ? contentContainer : this;
@@ -404,50 +480,96 @@ namespace UnityEditor.ShaderGraph.Drawing
             m_InsertIndex = -1;
         }
 
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         int scrollViewIndex { get; set; }
 
         void ScrollRegionTopEnter(MouseEnterEvent mouseEnterEvent)
         {
+<<<<<<< HEAD
+            if (m_IsFieldBeingDragged)
+            {
+                m_scrollToTop = true;
+                m_scrollToBottom = false;
+=======
             if (m_IsUserDraggingItems)
             {
                 SetCategoryDragIndicatorVisible(false);
                 m_ScrollToTop = true;
                 m_ScrollToBottom = false;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
         }
 
         void ScrollRegionTopLeave(MouseLeaveEvent mouseLeaveEvent)
         {
+<<<<<<< HEAD
+            if (m_IsFieldBeingDragged)
+                m_scrollToTop = false;
+=======
             if (m_IsUserDraggingItems)
             {
                 m_ScrollToTop = false;
                 // If there are any categories in the selection, show drag indicator, otherwise hide
                 SetCategoryDragIndicatorVisible(selection.OfType<SGBlackboardCategory>().Any());
             }
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void ScrollRegionBottomEnter(MouseEnterEvent mouseEnterEvent)
         {
+<<<<<<< HEAD
+            if (m_IsFieldBeingDragged)
+            {
+                m_scrollToBottom = true;
+                m_scrollToTop = false;
+=======
             if (m_IsUserDraggingItems)
             {
                 SetCategoryDragIndicatorVisible(false);
                 m_ScrollToBottom = true;
                 m_ScrollToTop = false;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             }
         }
 
         void ScrollRegionBottomLeave(MouseLeaveEvent mouseLeaveEvent)
         {
+<<<<<<< HEAD
+            if (m_IsFieldBeingDragged)
+                m_scrollToBottom = false;
+=======
             if (m_IsUserDraggingItems)
             {
                 m_ScrollToBottom = false;
                 // If there are any categories in the selection, show drag indicator, otherwise hide
                 SetCategoryDragIndicatorVisible(selection.OfType<SGBlackboardCategory>().Any());
             }
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void OnFieldDragUpdate(DragUpdatedEvent dragUpdatedEvent)
         {
+<<<<<<< HEAD
+            if (m_scrollToTop)
+                m_ScrollView.scrollOffset = new Vector2(m_ScrollView.scrollOffset.x, Mathf.Clamp(m_ScrollView.scrollOffset.y - k_DraggedPropertyScrollSpeed, 0, scrollableHeight));
+            else if (m_scrollToBottom)
+                m_ScrollView.scrollOffset = new Vector2(m_ScrollView.scrollOffset.x, Mathf.Clamp(m_ScrollView.scrollOffset.y + k_DraggedPropertyScrollSpeed, 0, scrollableHeight));
+        }
+
+        public virtual void AddToSelection(ISelectable selectable)
+        {
+            graphView?.AddToSelection(selectable);
+        }
+
+        public virtual void RemoveFromSelection(ISelectable selectable)
+        {
+            graphView?.RemoveFromSelection(selectable);
+        }
+
+        public virtual void ClearSelection()
+        {
+            graphView?.ClearSelection();
+=======
             if (m_ScrollToTop)
                 m_ScrollView.scrollOffset = new Vector2(m_ScrollView.scrollOffset.x, Mathf.Clamp(m_ScrollView.scrollOffset.y - k_DraggedPropertyScrollSpeed, 0, scrollableHeight));
             else if (m_ScrollToBottom)
@@ -577,6 +699,7 @@ namespace UnityEditor.ShaderGraph.Drawing
 
             m_SubTitleLabel.text = BlackboardUtils.FormatPath(newPath);
             m_EditPathCancelled = false;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
     }
 }

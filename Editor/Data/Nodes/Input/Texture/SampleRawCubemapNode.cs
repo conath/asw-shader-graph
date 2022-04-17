@@ -28,6 +28,10 @@ namespace UnityEditor.ShaderGraph
             UpdateNodeAfterDeserialization();
         }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         public sealed override void UpdateNodeAfterDeserialization()
         {
             AddSlot(new Vector4MaterialSlot(OutputSlotId, kOutputSlotName, kOutputSlotName, SlotType.Output, Vector4.zero));
@@ -47,11 +51,19 @@ namespace UnityEditor.ShaderGraph
 
             var id = GetSlotValue(CubemapInputId, generationMode);
             string result = string.Format("$precision4 {0} = SAMPLE_TEXTURECUBE_LOD({1}.tex, {2}.samplerstate, {3}, {4});"
+<<<<<<< HEAD
+                    , GetVariableNameForSlot(OutputSlotId)
+                    , id
+                    , edgesSampler.Any() ? GetSlotValue(SamplerInputId, generationMode) : id
+                    , GetSlotValue(NormalInputId, generationMode)
+                    , GetSlotValue(LODInputId, generationMode));
+=======
                 , GetVariableNameForSlot(OutputSlotId)
                 , id
                 , edgesSampler.Any() ? GetSlotValue(SamplerInputId, generationMode) : id
                 , GetSlotValue(NormalInputId, generationMode)
                 , GetSlotValue(LODInputId, generationMode));
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             sb.AppendLine(result);
         }

@@ -66,10 +66,14 @@ namespace UnityEditor.ShaderGraph
         Float = ConcreteSlotValueType.Vector1, // This is currently the only renaming we need - rename Vector1 to Float
         Boolean = ConcreteSlotValueType.Boolean,
         VirtualTexture = ConcreteSlotValueType.VirtualTexture,
+<<<<<<< HEAD
+
+=======
         PropertyConnectionState = ConcreteSlotValueType.PropertyConnectionState,
 
         // These allow the user to choose 'bare' types for custom function nodes
         // they are treated specially in the conversion functions below
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         BareSamplerState = 1000 + ConcreteSlotValueType.SamplerState,
         BareTexture2D = 1000 + ConcreteSlotValueType.Texture2D,
         BareTexture2DArray = 1000 + ConcreteSlotValueType.Texture2DArray,
@@ -127,11 +131,18 @@ namespace UnityEditor.ShaderGraph
                 case ConcreteSlotValueTypePopupName.BareCubemap:
                     isBareResource = true;
                     return ConcreteSlotValueType.Cubemap;
+<<<<<<< HEAD
+            };
+
+            isBareResource = false;
+            return (ConcreteSlotValueType) popup;
+=======
             }
             ;
 
             isBareResource = false;
             return (ConcreteSlotValueType)popup;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         public static bool AllowedAsSubgraphOutput(this ConcreteSlotValueTypePopupName type)

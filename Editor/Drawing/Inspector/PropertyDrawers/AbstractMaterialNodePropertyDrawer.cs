@@ -68,7 +68,10 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             }
 
             PropertyDrawerUtils.AddDefaultNodeProperties(nodeSettings, node, m_setNodesAsDirtyCallback, m_updateNodeViewsCallback);
+<<<<<<< HEAD
+=======
             AddCustomNodeProperties(nodeSettings, node, m_setNodesAsDirtyCallback, m_updateNodeViewsCallback);
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             propertyVisualElement = null;
 

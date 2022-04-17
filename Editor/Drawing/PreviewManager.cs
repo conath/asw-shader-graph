@@ -481,6 +481,34 @@ namespace UnityEditor.ShaderGraph.Drawing
             return update;
         }
 
+        bool TimedNodesShouldUpdate(EditorWindow editorWindow)
+        {
+            // get current screen FPS, clamp to what we consider a valid range
+            // this is probably not accurate for multi-monitor.. but should be relevant to at least one of the monitors
+            double monitorFPS = Screen.currentResolution.refreshRate + 1.0;  // +1 to round up, since it is an integer and rounded down
+            if (Double.IsInfinity(monitorFPS) || Double.IsNaN(monitorFPS))
+                monitorFPS = 60.0f;
+            monitorFPS = Math.Min(monitorFPS, 144.0);
+            monitorFPS = Math.Max(monitorFPS, 30.0);
+
+            var curTime = EditorApplication.timeSinceStartup;
+            var deltaTime = curTime - m_LastTimedUpdateTime;
+            bool isFocusedWindow = (EditorWindow.focusedWindow == editorWindow);
+
+            // we throttle the update rate, based on whether the window is focused and if unity is active
+            const double k_AnimatedFPS_WhenNotFocused = 10.0;
+            const double k_AnimatedFPS_WhenInactive = 2.0;
+            double maxAnimatedFPS =
+                (UnityEditorInternal.InternalEditorUtility.isApplicationActive ?
+                    (isFocusedWindow ? monitorFPS : k_AnimatedFPS_WhenNotFocused) :
+                    k_AnimatedFPS_WhenInactive);
+
+            bool update = (deltaTime > (1.0 / maxAnimatedFPS));
+            if (update)
+                m_LastTimedUpdateTime = curTime;
+            return update;
+        }
+
         private static readonly ProfilerMarker RenderPreviewsMarker = new ProfilerMarker("RenderPreviews");
         public void RenderPreviews(EditorWindow editorWindow, bool requestShaders = true)
         {

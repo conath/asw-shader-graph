@@ -58,6 +58,11 @@ namespace UnityEditor.ShaderGraph
         [SerializeField]
         List<JsonData<ShaderDropdown>> m_MetaDropdowns = new List<JsonData<ShaderDropdown>>();
 
+<<<<<<< HEAD
+        public CopyPasteGraph(IEnumerable<GroupData> groups, IEnumerable<AbstractMaterialNode> nodes, IEnumerable<Edge> edges,
+            IEnumerable<ShaderInput> inputs, IEnumerable<AbstractShaderProperty> metaProperties, IEnumerable<ShaderKeyword> metaKeywords, IEnumerable<StickyNoteData> notes,
+            bool keepOutputEdges = false, bool removeOrphanEdges = true)
+=======
         [SerializeField]
         List<string> m_MetaDropdownIds = new List<string>();
 
@@ -75,6 +80,7 @@ namespace UnityEditor.ShaderGraph
                               bool keepOutputEdges = false,
                               bool removeOrphanEdges = true,
                               CopyPasteGraphSource copyPasteGraphSource = CopyPasteGraphSource.Default)
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             m_CopyPasteGraphSource = copyPasteGraphSource;
             if (groups != null)
@@ -137,18 +143,23 @@ namespace UnityEditor.ShaderGraph
                     AddMetaKeyword(metaKeyword);
             }
 
+<<<<<<< HEAD
+=======
             if (metaDropdowns != null)
             {
                 foreach (var metaDropdown in metaDropdowns.Distinct())
                     AddMetaDropdown(metaDropdown);
             }
 
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             var distinct = m_Edges.Distinct();
             if (removeOrphanEdges)
             {
                 distinct = distinct.Where(edge => nodeSet.Contains(edge.inputSlot.node) || (keepOutputEdges && nodeSet.Contains(edge.outputSlot.node)));
             }
             m_Edges = distinct.ToList();
+<<<<<<< HEAD
+=======
         }
 
         public bool IsInputCategorized(ShaderInput shaderInput)
@@ -179,6 +190,7 @@ namespace UnityEditor.ShaderGraph
                 return false;
 
             return false;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         void AddGroup(GroupData group)

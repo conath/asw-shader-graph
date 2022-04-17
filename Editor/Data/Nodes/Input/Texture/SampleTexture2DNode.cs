@@ -119,12 +119,20 @@ namespace UnityEditor.ShaderGraph
             var edgesSampler = owner.GetEdges(samplerSlot.slotReference);
 
             var id = GetSlotValue(TextureInputId, generationMode);
+<<<<<<< HEAD
+            var result = string.Format("$precision4 {0} = SAMPLE_TEXTURE2D({1}.tex, {2}.samplerstate, {3});"
+                    , GetVariableNameForSlot(OutputSlotRGBAId)
+                    , id
+                    , edgesSampler.Any() ? GetSlotValue(SamplerInput, generationMode) : id
+                    , uvName);
+=======
             var result = string.Format("$precision4 {0} = {1}({2}.tex, {3}.samplerstate, {2}.GetTransformedUV({4}));"
                 , GetVariableNameForSlot(OutputSlotRGBAId)
                 , m_EnableGlobalMipBias ? kDefaultSampleMacro : kSampleMacroNoBias
                 , id
                 , edgesSampler.Any() ? GetSlotValue(SamplerInput, generationMode) : id
                 , uvName);
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             sb.AppendLine(result);
 

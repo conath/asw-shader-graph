@@ -19,8 +19,13 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
         public delegate void ChangeGraphDefaultPrecisionCallback(GraphPrecision newDefaultGraphPrecision);
         public delegate void PostTargetSettingsChangedCallback();
 
+<<<<<<< HEAD
+        ChangeConcretePrecisionCallback m_postChangeConcretePrecisionCallback;
+        Action<InspectorUpdateSource> m_PostChangeTargetSettingsCallback;
+=======
         PostTargetSettingsChangedCallback m_postChangeTargetSettingsCallback;
         ChangeGraphDefaultPrecisionCallback m_changeGraphDefaultPrecisionCallback;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
         Dictionary<Target, bool> m_TargetFoldouts = new Dictionary<Target, bool>();
 
@@ -28,8 +33,20 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             PostTargetSettingsChangedCallback postChangeValueCallback,
             ChangeGraphDefaultPrecisionCallback changeGraphDefaultPrecisionCallback)
         {
+<<<<<<< HEAD
+            GetPropertyDataInternal(new Action<InspectorUpdateSource>((inspectorUpdateSource) => postChangeValueCallback()), changeConcretePrecisionCallback);
+        }
+
+        internal void GetPropertyDataInternal(
+            Action<InspectorUpdateSource> postChangeValueCallback,
+            ChangeConcretePrecisionCallback changeConcretePrecisionCallback)
+        {
+            m_PostChangeTargetSettingsCallback = postChangeValueCallback;
+            m_postChangeConcretePrecisionCallback = changeConcretePrecisionCallback;
+=======
             m_postChangeTargetSettingsCallback = postChangeValueCallback;
             m_changeGraphDefaultPrecisionCallback = changeGraphDefaultPrecisionCallback;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         VisualElement GetSettings(GraphData graphData, Action onChange)
@@ -59,6 +76,21 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
 
             targetList.OnAddMenuItemCallback +=
                 (list, addMenuOptionIndex, addMenuOption) =>
+<<<<<<< HEAD
+                {
+                    RegisterActionToUndo("Add Target");
+                    graphData.SetTargetActive(addMenuOptionIndex);
+                    m_PostChangeTargetSettingsCallback(InspectorUpdateSource.GraphChanges);
+                };
+
+            targetList.RemoveItemCallback +=
+                (list, itemIndex) =>
+                {
+                    RegisterActionToUndo("Remove Target");
+                    graphData.SetTargetInactive(list[itemIndex].value);
+                    m_PostChangeTargetSettingsCallback(InspectorUpdateSource.GraphChanges);
+                };
+=======
             {
                 RegisterActionToUndo("Add Target");
                 graphData.SetTargetActive(addMenuOptionIndex);
@@ -72,6 +104,7 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 graphData.SetTargetInactive(list[itemIndex].value);
                 m_postChangeTargetSettingsCallback();
             };
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             element.Add(targetList);
 
@@ -158,6 +191,15 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                 return propertySheet;
             }
 
+<<<<<<< HEAD
+            {
+                var enumPropertyDrawer = new EnumPropertyDrawer();
+                propertySheet.Add(enumPropertyDrawer.CreateGUI(
+                    newValue => { m_postChangeConcretePrecisionCallback((ConcretePrecision)newValue); },
+                    graphData.concretePrecision,
+                    "Precision",
+                    ConcretePrecision.Single,
+=======
             if (!graphData.isSubGraph)
             {
                 // precision selector for shader graphs
@@ -192,10 +234,26 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
                     graphData.previewMode,
                     "Preview",
                     PreviewMode.Inherit,
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                     out var propertyVisualElement));
             }
 
-            propertySheet.Add(GetSettings(graphData, () => this.m_postChangeTargetSettingsCallback()));
+            if (graphData.isSubGraph)
+            {
+                var enumPropertyDrawer = new EnumPropertyDrawer();
+                propertySheet.Add(enumPropertyDrawer.CreateGUI(
+                    newValue =>
+                    {
+                        graphData.owner.RegisterCompleteObjectUndo("Change Preview Mode");
+                        graphData.previewMode = (PreviewMode) newValue;
+                    },
+                    graphData.previewMode,
+                    "Preview",
+                    PreviewMode.Inherit,
+                    out var propertyVisualElement));
+            }
+
+            propertySheet.Add(GetSettings(graphData, () => this.m_PostChangeTargetSettingsCallback(InspectorUpdateSource.GraphChanges)));
 
             return propertySheet;
         }

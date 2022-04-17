@@ -38,9 +38,12 @@ namespace UnityEditor.ShaderGraph.Internal
 
         public override PropertyType propertyType => PropertyType.Texture2D;
 
+<<<<<<< HEAD
+=======
         [SerializeField]
         internal bool isMainTexture = false;
 
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         internal override bool isExposable => true;
         internal override bool isRenamable => true;
 
@@ -60,6 +63,17 @@ namespace UnityEditor.ShaderGraph.Internal
 
         // Texture2D properties cannot be set via Hybrid path at the moment; disallow that choice
         internal override bool AllowHLSLDeclaration(HLSLDeclaration decl) => (decl != HLSLDeclaration.HybridPerInstance) && (decl != HLSLDeclaration.DoNotDeclare);
+<<<<<<< HEAD
+
+        internal override void ForeachHLSLProperty(Action<HLSLProperty> action)
+        {
+            HLSLDeclaration decl = (generatePropertyBlock ? HLSLDeclaration.UnityPerMaterial : HLSLDeclaration.Global);
+
+            action(new HLSLProperty(HLSLType._Texture2D, referenceName, HLSLDeclaration.Global));
+            action(new HLSLProperty(HLSLType._SamplerState, "sampler" + referenceName, HLSLDeclaration.Global));
+            action(new HLSLProperty(HLSLType._float4, referenceName + "_TexelSize", decl));
+            // action(new HLSLProperty(HLSLType._float4, referenceName + "_ST", decl)); // TODO: allow users to make use of the ST values
+=======
 
         internal override void ForeachHLSLProperty(Action<HLSLProperty> action)
         {
@@ -82,10 +96,27 @@ namespace UnityEditor.ShaderGraph.Internal
         internal override string GetPropertyAsArgumentStringForVFX(string precisionString)
         {
             return "TEXTURE2D(" + referenceName + ")";
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         internal override string GetHLSLVariableName(bool isSubgraphProperty, GenerationMode mode)
         {
+<<<<<<< HEAD
+            return "UnityTexture2D " + referenceName;
+        }
+
+        internal override string GetPropertyAsArgumentStringForVFX()
+        {
+            return "TEXTURE2D(" + referenceName + ")";
+        }
+
+        internal override string GetHLSLVariableName(bool isSubgraphProperty)
+        {
+            if (isSubgraphProperty)
+                return referenceName;
+            else
+                return $"UnityBuildTexture2DStructNoScale({referenceName})";
+=======
             if (isSubgraphProperty)
                 return referenceName;
             else
@@ -99,6 +130,7 @@ namespace UnityEditor.ShaderGraph.Internal
                     return $"UnityBuildTexture2DStructNoScale({referenceName})";
                 }
             }
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         [SerializeField]

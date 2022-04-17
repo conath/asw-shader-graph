@@ -19,7 +19,11 @@ using UnityEngine.Pool;
 namespace UnityEditor.ShaderGraph
 {
     [ExcludeFromPreset]
+<<<<<<< HEAD
+    [ScriptedImporter(26, Extension, -905)]
+=======
     [ScriptedImporter(30, Extension, -905)]
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     class ShaderSubGraphImporter : ScriptedImporter
     {
         public const string Extension = "shadersubgraph";
@@ -230,6 +234,12 @@ namespace UnityEditor.ShaderGraph
             CollectInputCapabilities(asset, graph);
 
             asset.vtFeedbackVariables = VirtualTexturingFeedbackUtils.GetFeedbackVariables(outputNode as SubGraphOutputNode);
+<<<<<<< HEAD
+            asset.requirements = ShaderGraphRequirements.FromNodes(nodes, asset.effectiveShaderStage, false);
+            asset.graphPrecision = graph.concretePrecision;
+            asset.outputPrecision = outputNode.concretePrecision;
+            asset.previewMode = graph.previewMode;
+=======
             asset.requirements = ShaderGraphRequirements.FromNodes(nodes, effectiveShaderStage, false);
 
             // output precision is whatever the output node has as a graph precision, falling back to the graph default
@@ -241,6 +251,7 @@ namespace UnityEditor.ShaderGraph
             asset.previewMode = graph.previewMode;
 
             asset.includes = graphIncludes;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
             GatherDescendentsFromGraph(new GUID(asset.assetGuid), out var containsCircularDependency, out var descendents);
             asset.descendents.AddRange(descendents.Select(g => g.ToString()));
@@ -286,6 +297,10 @@ namespace UnityEditor.ShaderGraph
                 }
             }
 
+<<<<<<< HEAD
+            // provide top level subgraph function
+            registry.ProvideFunction(asset.functionName, sb =>
+=======
             // Need to order the properties so that they are in the same order on a subgraph node in a shadergraph
             // as they are in the blackboard for the subgraph itself.  The (blackboard) categories keep that ordering,
             // so traverse those and add those items to the ordered properties list.  Needs to be used to set up the
@@ -310,6 +325,7 @@ namespace UnityEditor.ShaderGraph
             // provide top level subgraph function
             // NOTE: actual concrete precision here shouldn't matter, it's irrelevant when building the subgraph asset
             registry.ProvideFunction(asset.functionName, asset.subGraphGraphPrecision, ConcretePrecision.Single, sb =>
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             {
                 GenerationUtils.GenerateSurfaceInputStruct(sb, asset.requirements, asset.inputStructName);
                 sb.AppendNewLine();
@@ -318,6 +334,10 @@ namespace UnityEditor.ShaderGraph
                 var arguments = new List<string>();
                 foreach (var prop in orderedProperties)
                 {
+<<<<<<< HEAD
+                    prop.ValidateConcretePrecision(asset.graphPrecision);
+                    arguments.Add(prop.GetPropertyAsArgumentString());
+=======
                     // apply fallback to the graph default precision (but don't convert to concrete)
                     // this means "graph switchable" properties will use the precision token
                     GraphPrecision propGraphPrecision = prop.precision.ToGraphPrecision(graph.graphDefaultPrecision);
@@ -333,14 +353,21 @@ namespace UnityEditor.ShaderGraph
                     var dropdowns = graph.dropdowns;
                     foreach (var dropdown in dropdowns)
                         arguments.Add($"int {dropdown.referenceName}");
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 }
 
                 // now pass surface inputs
                 arguments.Add(string.Format("{0} IN", asset.inputStructName));
 
+<<<<<<< HEAD
+                // Now generate outputs
+                foreach (MaterialSlot output in outputSlots)
+                    arguments.Add($"out {output.concreteValueType.ToShaderString(asset.outputPrecision)} {output.shaderOutputName}_{output.id}");
+=======
                 // Now generate output arguments
                 foreach (MaterialSlot output in outputSlots)
                     arguments.Add($"out {output.concreteValueType.ToShaderString(asset.outputGraphPrecision.ToGenericString())} {output.shaderOutputName}_{output.id}");
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 // Vt Feedback output arguments (always full float4)
                 foreach (var output in asset.vtFeedbackVariables)
@@ -397,7 +424,11 @@ namespace UnityEditor.ShaderGraph
             var collector = new PropertyCollector();
             foreach (var node in nodes)
             {
+<<<<<<< HEAD
+                int previousPropertyCount = Math.Max(0, collector.propertyCount-1);
+=======
                 int previousPropertyCount = Math.Max(0, collector.propertyCount - 1);
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
 
                 node.CollectShaderProperties(collector, GenerationMode.ForReals);
 

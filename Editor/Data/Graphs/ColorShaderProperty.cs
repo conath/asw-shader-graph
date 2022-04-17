@@ -28,6 +28,12 @@ namespace UnityEditor.ShaderGraph.Internal
         }
 
         public override PropertyType propertyType => PropertyType.Color;
+<<<<<<< HEAD
+        
+        internal override bool isExposable => true;
+        internal override bool isRenamable => true;
+        
+=======
 
         internal override bool isExposable => true;
         internal override bool isRenamable => true;
@@ -35,6 +41,7 @@ namespace UnityEditor.ShaderGraph.Internal
         [SerializeField]
         internal bool isMainColor = false;
 
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         internal string hdrTagString => colorMode == ColorMode.HDR ? "[HDR]" : "";
 
         internal string mainColorString => isMainColor ? "[MainColor]" : "";
@@ -44,9 +51,15 @@ namespace UnityEditor.ShaderGraph.Internal
             return $"{hideTagString}{hdrTagString}{mainColorString}{referenceName}(\"{displayName}\", Color) = ({NodeUtils.FloatToShaderValueShaderLabSafe(value.r)}, {NodeUtils.FloatToShaderValueShaderLabSafe(value.g)}, {NodeUtils.FloatToShaderValueShaderLabSafe(value.b)}, {NodeUtils.FloatToShaderValueShaderLabSafe(value.a)})";
         }
 
+<<<<<<< HEAD
+        internal override string GetPropertyAsArgumentString()
+        {
+            return $"{concreteShaderValueType.ToShaderString(concretePrecision.ToShaderString())} {referenceName}";
+=======
         internal override string GetPropertyAsArgumentString(string precisionString)
         {
             return $"{concreteShaderValueType.ToShaderString(precisionString)} {referenceName}";
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         internal override void ForeachHLSLProperty(Action<HLSLProperty> action)
@@ -55,7 +68,11 @@ namespace UnityEditor.ShaderGraph.Internal
             action(new HLSLProperty(HLSLType._float4, referenceName, decl, concretePrecision));
         }
 
+<<<<<<< HEAD
+        public override string GetDefaultReferenceName()
+=======
         public override string GetOldDefaultReferenceName()
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         {
             return $"Color_{objectId}";
         }
@@ -104,6 +121,15 @@ namespace UnityEditor.ShaderGraph.Internal
                 return base.GetHLSLVariableName(isSubgraphProperty, mode);
         }
 
+        internal override string GetHLSLVariableName(bool isSubgraphProperty)
+        {
+            HLSLDeclaration decl = GetDefaultHLSLDeclaration();
+            if (decl == HLSLDeclaration.HybridPerInstance)
+                return $"UNITY_ACCESS_HYBRID_INSTANCED_PROP({referenceName}, {concretePrecision.ToShaderString()}4)";
+            else
+                return referenceName;
+        }
+
         internal override ShaderInput Copy()
         {
             return new ColorShaderProperty()
@@ -112,7 +138,13 @@ namespace UnityEditor.ShaderGraph.Internal
                 displayName = displayName,
                 value = value,
                 colorMode = colorMode,
+<<<<<<< HEAD
+                precision = precision,
+                overrideHLSLDeclaration = overrideHLSLDeclaration,
+                hlslDeclarationOverride = hlslDeclarationOverride
+=======
                 isMainColor = isMainColor
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             };
         }
 
@@ -126,6 +158,8 @@ namespace UnityEditor.ShaderGraph.Internal
                 ChangeVersion((sgVersion == 0) ? 2 : 3);
             }
         }
+<<<<<<< HEAD
+=======
 
         internal override void OnBeforePasteIntoGraph(GraphData graph)
         {
@@ -139,5 +173,6 @@ namespace UnityEditor.ShaderGraph.Internal
             }
             base.OnBeforePasteIntoGraph(graph);
         }
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     }
 }

@@ -82,6 +82,10 @@ namespace UnityEditor.ShaderGraph
         public override void CopyValuesFrom(MaterialSlot foundSlot)
         { }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         public override void CopyDefaultValue(MaterialSlot other)
         {
             base.CopyDefaultValue(other);

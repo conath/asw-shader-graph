@@ -30,6 +30,17 @@ namespace UnityEditor.ShaderGraph.Internal
         };
 
         public static readonly LightmapTextureArrayProperty kLightmapsIndirectionArray = new LightmapTextureArrayProperty()
+<<<<<<< HEAD
+            {
+                displayName = "unity_LightmapsInd",
+                generatePropertyBlock = true,
+                overrideHLSLDeclaration = false,
+                hlslDeclarationOverride = HLSLDeclaration.DoNotDeclare,
+                hidden = true,
+                modifiable = true,
+                overrideReferenceName = "unity_LightmapsInd",
+                precision = Precision.Single
+=======
         {
             displayName = "unity_LightmapsInd",
             generatePropertyBlock = true,
@@ -39,6 +50,7 @@ namespace UnityEditor.ShaderGraph.Internal
             modifiable = true,
             overrideReferenceName = "unity_LightmapsInd",
             precision = Precision.Single
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         };
 
         public static readonly LightmapTextureArrayProperty kShadowMasksArray = new LightmapTextureArrayProperty()

@@ -229,7 +229,11 @@ namespace UnityEditor.ShaderGraph
                     }
                 }
 
+<<<<<<< HEAD
+                if(outputSlots.Any(x => x.hasError))
+=======
                 if (outputSlots.Any(x => x.hasError))
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 {
                     owner.AddConcretizationError(objectId, string.Format("Node {0} had output error", objectId));
                     hasError = true;

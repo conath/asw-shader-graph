@@ -22,6 +22,20 @@ namespace UnityEditor.ShaderGraph
         // subgraph Sampler States can be renamed
         // just the actual properties they create will always have fixed names
         internal override bool isRenamable => true;
+<<<<<<< HEAD
+
+        internal override bool isReferenceRenamable => false;
+
+        // this is the fixed naming scheme for actual samplerstates properties
+        string propertyReferenceName => value.defaultPropertyName;
+        public override string referenceNameForEditing => propertyReferenceName;
+
+        internal override bool AllowHLSLDeclaration(HLSLDeclaration decl) => false; // disable UI, nothing to choose
+
+        internal override void ForeachHLSLProperty(Action<HLSLProperty> action)
+        {
+            action(new HLSLProperty(HLSLType._SamplerState, propertyReferenceName, HLSLDeclaration.Global));
+=======
 
         internal override bool isReferenceRenamable => false;
 
@@ -39,10 +53,19 @@ namespace UnityEditor.ShaderGraph
         internal override string GetPropertyAsArgumentString(string precisionString)
         {
             return $"UnitySamplerState {referenceName}";
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
         }
 
         internal override string GetHLSLVariableName(bool isSubgraphProperty, GenerationMode mode)
         {
+<<<<<<< HEAD
+            return $"UnitySamplerState {referenceName}";
+        }
+
+        internal override string GetHLSLVariableName(bool isSubgraphProperty)
+        {
+=======
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             if (isSubgraphProperty)
                 return referenceName;
             else
@@ -83,7 +106,11 @@ namespace UnityEditor.ShaderGraph
                 // however we must clear out the old reference name first (as it was always hard-coded)
                 // this will fallback to the default ref name
                 overrideReferenceName = null;
+<<<<<<< HEAD
+                GetDefaultReferenceName();
+=======
                 var unused = referenceName;
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
                 ChangeVersion(1);
             }
         }

@@ -58,6 +58,9 @@ namespace UnityEditor.ShaderGraph
             }
         }
 
+<<<<<<< HEAD
+        public string defaultPropertyName => $"SamplerState_{filter}_{wrap}";
+=======
         [SerializeField] private Anisotropic m_anisotropic = Anisotropic.None;
 
         public Anisotropic anisotropic
@@ -97,5 +100,6 @@ namespace UnityEditor.ShaderGraph
         }
 
         public string defaultPropertyName => BuildSamplerStateName(filter, wrap, anisotropic);
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
     }
 }

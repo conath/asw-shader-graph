@@ -25,9 +25,12 @@ namespace UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers
             out VisualElement propertyVisualElement)
         {
             var propertySheet = new PropertySheet(PropertyDrawerUtils.CreateLabel($"{node.name} Node", 0, FontStyle.Bold));
+<<<<<<< HEAD
+=======
 
             PropertyDrawerUtils.AddDefaultNodeProperties(propertySheet, node, m_setNodesAsDirtyCallback, m_updateNodeViewsCallback);
 
+>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76
             var inputListView = new ReorderableSlotListView(node, SlotType.Input, false);
             inputListView.OnAddCallback += list => inspectorUpdateDelegate();
             inputListView.OnRemoveCallback += list => inspectorUpdateDelegate();

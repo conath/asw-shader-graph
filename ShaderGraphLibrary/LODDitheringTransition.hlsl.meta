@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:com.unity.shadergraph/ShaderGraphLibrary/LODDitheringTransition.hlsl.meta
 guid: 5248225944112fb418a213fa587fe10d
+========
+guid: 9604e389528d04ae39fe05a7b4212172
+>>>>>>>> 30e14a2ca18f7c4c9903767895c1ca15d1af6c76:com.unity.render-pipelines.universal/Shaders/BakedLitDepthNormalsPass.hlsl.meta
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []

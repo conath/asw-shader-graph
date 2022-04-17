@@ -40,6 +40,26 @@ namespace UnityEditor.ShaderGraph
                 base.AppendHLSLParameterDeclaration(sb, paramName);
         }
 
+        [SerializeField]
+        bool m_BareResource = false;
+        internal override bool bareResource
+        {
+            get { return m_BareResource; }
+            set { m_BareResource = value; }
+        }
+
+        public override void AppendHLSLParameterDeclaration(ShaderStringBuilder sb, string paramName)
+        {
+            if (m_BareResource)
+            {
+                sb.Append("TEXTURE2D_ARRAY(");
+                sb.Append(paramName);
+                sb.Append(")");
+            }
+            else
+                base.AppendHLSLParameterDeclaration(sb, paramName);
+        }
+
         public override SlotValueType valueType { get { return SlotValueType.Texture2DArray; } }
         public override ConcreteSlotValueType concreteValueType { get { return ConcreteSlotValueType.Texture2DArray; } }
         public override bool isDefaultValue => true;
